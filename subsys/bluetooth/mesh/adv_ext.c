@@ -429,6 +429,7 @@ static struct bt_mesh_ext_adv *adv_instance_find(struct bt_le_ext_adv *instance)
 static void adv_sent(struct bt_le_ext_adv *instance,
 		     struct bt_le_ext_adv_sent_info *info)
 {
+	LOG_INF("Current Time (%lld ms)", k_uptime_get());
 	struct bt_mesh_ext_adv *adv = adv_instance_find(instance);
 
 	if (!adv) {

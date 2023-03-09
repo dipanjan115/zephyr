@@ -7,6 +7,7 @@
 #include "mesh/net.h"
 #include "mesh/access.h"
 #include "mesh/foundation.h"
+#include <bluetooth/mesh/models.h>
 
 #define LOG_MODULE_NAME test_access
 
@@ -223,12 +224,69 @@ static struct bt_mesh_model models_ne[] = {
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_5, model_ne_op5, NULL, NULL, &test_model5_cb),
 };
 
-static struct bt_mesh_model vnd_models[] = {};
+// static struct bt_mesh_model vnd_models[] = {};
+
+// static struct bt_mesh_elem elems[] = {
+// 	BT_MESH_ELEM(0, models, vnd_models),
+// 	BT_MESH_ELEM(1, models_ne, vnd_models),
+// };
+
+static void led_set(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
+		    const struct bt_mesh_onoff_set *set,
+		    struct bt_mesh_onoff_status *rsp);
+
+static void led_get(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
+		    struct bt_mesh_onoff_status *rsp);
+
+static const struct bt_mesh_onoff_srv_handlers onoff_handlers = {
+	.set = led_set,
+	.get = led_get,
+};
+
+static void led_set(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
+		    const struct bt_mesh_onoff_set *set,
+		    struct bt_mesh_onoff_status *rsp)
+{
+	// Fill 'rsp'
+	rsp->present_on_off = false;
+	rsp->target_on_off = false;
+	rsp->remaining_time = 0;
+
+}
+
+static void led_get(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
+		    struct bt_mesh_onoff_status *rsp)
+{
+	// Fill 'rsp'
+	rsp->present_on_off = false;
+	rsp->target_on_off = false;
+	rsp->remaining_time = 0;
+	
+}
+
+
+static void status_handler(struct bt_mesh_onoff_cli *cli,
+			   			struct bt_mesh_msg_ctx *ctx,
+						const struct bt_mesh_onoff_status *status)
+{
+	// Todo	
+}
+
+struct bt_mesh_onoff_srv onoffsrv = BT_MESH_ONOFF_SRV_INIT(&onoff_handlers);
+struct bt_mesh_onoff_cli onoffcli = BT_MESH_ONOFF_CLI_INIT(&status_handler);
 
 static struct bt_mesh_elem elems[] = {
-	BT_MESH_ELEM(0, models, vnd_models),
-	BT_MESH_ELEM(1, models_ne, vnd_models),
+
+	BT_MESH_ELEM(1,
+		     		BT_MESH_MODEL_LIST(
+			     		BT_MESH_MODEL_CFG_SRV,
+			    		//  BT_MESH_MODEL_HEALTH_SRV(&health_srv, &health_pub),
+				 		BT_MESH_MODEL_ONOFF_SRV(&onoffsrv),
+			     		BT_MESH_MODEL_ONOFF_CLI(&onoffcli),
+						),
+		     	BT_MESH_MODEL_NONE),
 };
+
 
 const struct bt_mesh_comp local_comp = {
 	.elem = elems,
@@ -316,9 +374,9 @@ static void common_configure(uint16_t addr)
 {
 	uint8_t status;
 	int err;
-	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2,
-			TEST_MODEL_ID_3, TEST_MODEL_ID_4, TEST_MODEL_ID_5};
-
+	// uint16_t model_ids[] = {/* add model ID for GenOnff cli and Srv and remove others*/, TEST_MODEL_ID_2,
+			// TEST_MODEL_ID_3, TEST_MODEL_ID_4, TEST_MODEL_ID_5};
+	uint16_t model_ids[] = {0x1001, 0x1000};
 	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
 	if (err || status) {
 		FAIL("AppKey add failed (err %d, status %u)", err, status);
@@ -333,12 +391,12 @@ static void common_configure(uint16_t addr)
 			return;
 		}
 
-		err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr + 1, 0, model_ids[i], &status);
-		if (err || status) {
-			FAIL("Model %#4x bind failed (err %d, status %u)",
-					model_ids[i], err, status);
-			return;
-		}
+		// err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr + 1, 0, model_ids[i], &status);
+		// if (err || status) {
+		// 	FAIL("Model %#4x bind failed (err %d, status %u)",
+		// 			model_ids[i], err, status);
+		// 	return;
+		// }
 	}
 
 	err = bt_mesh_cfg_cli_net_transmit_set(0, addr, BT_MESH_TRANSMIT(2, 20), &status);
@@ -822,6 +880,52 @@ static void test_rx_cancel(void)
 	PASS();
 }
 
+
+// /*todo: update signature */ void cb(void)
+// {
+// 	/* prepate message context `bt_mesh_msg_ctx` to send a message to ADDR2*/ 
+// 	/* call ...cli_set_unack()*/
+// 	/* schedule next kdelayed work at 50 ms after this */
+// }
+// void my_msg(void)
+// {
+// 	struct bt_mesh_msg_ctx ctx = {
+//     .addr = UNICAST_ADDR2,
+// 	};
+
+// }
+
+/* define k_work_delayable item and initialize it */
+static struct k_work_delayable test_work;
+static void test_work_cb(struct k_work *work)
+{
+	k_work_reschedule(&test_work, K_MSEC(50));
+}
+
+static void test_tx_manymsgs(void)
+{
+	//bt_mesh_test_cfg_set(NULL, 20);
+	bt_mesh_device_setup(&prov, &local_comp);
+	provision(UNICAST_ADDR1);
+	common_configure(UNICAST_ADDR1);
+	k_work_init_delayable(&test_work, test_work_cb);
+	/* trigger k_work_delayable every 50 ms*/
+	k_work_reschedule(&test_work, K_MSEC(50));
+
+}
+
+
+static void test_rx_manymsgs(void)
+{
+	//bt_mesh_test_cfg_set(NULL, 20);
+	bt_mesh_device_setup(&prov, &local_comp);
+	provision(UNICAST_ADDR2);
+	common_configure(UNICAST_ADDR2);
+
+}
+
+
+
 #define TEST_CASE(role, name, description)                     \
 	{                                                      \
 		.test_id = "access_" #role "_" #name,          \
@@ -840,6 +944,8 @@ static const struct bst_test_instance test_access[] = {
 	TEST_CASE(rx, transmit, "Access: Receive retransmitted messages"),
 	TEST_CASE(tx, cancel, "Access: Cancel a message during publication"),
 	TEST_CASE(rx, cancel, "Access: Receive published messages except cancelled"),
+	TEST_CASE(tx, manymsgs, "Send many messages"),
+	TEST_CASE(rx, manymsgs, "Receive many messages"),
 
 	BSTEST_END_MARKER
 };

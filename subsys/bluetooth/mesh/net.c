@@ -585,7 +585,7 @@ void bt_mesh_net_loopback_clear(uint16_t net_idx)
 	sys_slist_t new_list;
 	sys_snode_t *node;
 
-	LOG_DBG("0x%04x", net_idx);
+	//BT_DBG("0x%04x", net_idx);
 
 	sys_slist_init(&new_list);
 
