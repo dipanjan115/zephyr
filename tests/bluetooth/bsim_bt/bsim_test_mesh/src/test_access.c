@@ -925,7 +925,6 @@ static void test_rx_manymsgs(void)
 }
 
 
-
 #define TEST_CASE(role, name, description)                     \
 	{                                                      \
 		.test_id = "access_" #role "_" #name,          \
