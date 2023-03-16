@@ -514,6 +514,11 @@ int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 	const struct bt_mesh_net_cred *cred;
 	int err;
 
+	uint8_t appkey[];
+	uint8_t netkey[];
+
+	// Hacky decrypt of message to se the content and do whatever you want when you know the content
+
 	LOG_DBG("src 0x%04x dst 0x%04x len %u headroom %zu tailroom %zu", tx->src, tx->ctx->addr,
 		buf->len, net_buf_headroom(buf), net_buf_tailroom(buf));
 	LOG_DBG("Payload len %u: %s", buf->len, bt_hex(buf->data, buf->len));

@@ -36,7 +36,7 @@ function compile(){
   local cmake_cmd=(cmake -GNinja -DBOARD_ROOT=${BOARD_ROOT} -DBOARD=${BOARD} \
             -DCONF_FILE=${conf_file} -DOVERLAY_CONFIG=${conf_overlay} \
             ${modules_arg} \
-            ${cmake_args} -DCMAKE_C_FLAGS=\"${cc_flags}\" ${app_root}/${app})
+            ${cmake_args} ${app_root}/${app})
 
   # Set INCR_BUILD when calling to only do an incremental build
   if [ ! -v INCR_BUILD ] || [ ! -d "${this_dir}" ]; then
