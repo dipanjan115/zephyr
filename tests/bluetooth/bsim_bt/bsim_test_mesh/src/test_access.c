@@ -7,7 +7,6 @@
 #include "mesh/net.h"
 #include "mesh/access.h"
 #include "mesh/foundation.h"
-#include <bluetooth/mesh/models.h>
 
 #define LOG_MODULE_NAME test_access
 
@@ -224,69 +223,12 @@ static struct bt_mesh_model models_ne[] = {
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_5, model_ne_op5, NULL, NULL, &test_model5_cb),
 };
 
-// static struct bt_mesh_model vnd_models[] = {};
-
-// static struct bt_mesh_elem elems[] = {
-// 	BT_MESH_ELEM(0, models, vnd_models),
-// 	BT_MESH_ELEM(1, models_ne, vnd_models),
-// };
-
-static void led_set(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
-		    const struct bt_mesh_onoff_set *set,
-		    struct bt_mesh_onoff_status *rsp);
-
-static void led_get(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
-		    struct bt_mesh_onoff_status *rsp);
-
-static const struct bt_mesh_onoff_srv_handlers onoff_handlers = {
-	.set = led_set,
-	.get = led_get,
-};
-
-static void led_set(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
-		    const struct bt_mesh_onoff_set *set,
-		    struct bt_mesh_onoff_status *rsp)
-{
-	// Fill 'rsp'
-	rsp->present_on_off = false;
-	rsp->target_on_off = false;
-	rsp->remaining_time = 0;
-
-}
-
-static void led_get(struct bt_mesh_onoff_srv *srv, struct bt_mesh_msg_ctx *ctx,
-		    struct bt_mesh_onoff_status *rsp)
-{
-	// Fill 'rsp'
-	rsp->present_on_off = false;
-	rsp->target_on_off = false;
-	rsp->remaining_time = 0;
-	
-}
-
-
-static void status_handler(struct bt_mesh_onoff_cli *cli,
-			   			struct bt_mesh_msg_ctx *ctx,
-						const struct bt_mesh_onoff_status *status)
-{
-	// Todo	
-}
-
-struct bt_mesh_onoff_srv onoffsrv = BT_MESH_ONOFF_SRV_INIT(&onoff_handlers);
-struct bt_mesh_onoff_cli onoffcli = BT_MESH_ONOFF_CLI_INIT(&status_handler);
+static struct bt_mesh_model vnd_models[] = {};
 
 static struct bt_mesh_elem elems[] = {
-
-	BT_MESH_ELEM(1,
-		     		BT_MESH_MODEL_LIST(
-			     		BT_MESH_MODEL_CFG_SRV,
-			    		//  BT_MESH_MODEL_HEALTH_SRV(&health_srv, &health_pub),
-				 		BT_MESH_MODEL_ONOFF_SRV(&onoffsrv),
-			     		BT_MESH_MODEL_ONOFF_CLI(&onoffcli),
-						),
-		     	BT_MESH_MODEL_NONE),
+	BT_MESH_ELEM(0, models, vnd_models),
+	BT_MESH_ELEM(1, models_ne, vnd_models),
 };
-
 
 const struct bt_mesh_comp local_comp = {
 	.elem = elems,
@@ -374,9 +316,9 @@ static void common_configure(uint16_t addr)
 {
 	uint8_t status;
 	int err;
-	// uint16_t model_ids[] = {/* add model ID for GenOnff cli and Srv and remove others*/, TEST_MODEL_ID_2,
-			// TEST_MODEL_ID_3, TEST_MODEL_ID_4, TEST_MODEL_ID_5};
-	uint16_t model_ids[] = {0x1001, 0x1000};
+	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2,
+			TEST_MODEL_ID_3, TEST_MODEL_ID_4, TEST_MODEL_ID_5};
+
 	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
 	if (err || status) {
 		FAIL("AppKey add failed (err %d, status %u)", err, status);
@@ -391,12 +333,12 @@ static void common_configure(uint16_t addr)
 			return;
 		}
 
-		// err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr + 1, 0, model_ids[i], &status);
-		// if (err || status) {
-		// 	FAIL("Model %#4x bind failed (err %d, status %u)",
-		// 			model_ids[i], err, status);
-		// 	return;
-		// }
+		err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr + 1, 0, model_ids[i], &status);
+		if (err || status) {
+			FAIL("Model %#4x bind failed (err %d, status %u)",
+					model_ids[i], err, status);
+			return;
+		}
 	}
 
 	err = bt_mesh_cfg_cli_net_transmit_set(0, addr, BT_MESH_TRANSMIT(2, 20), &status);
@@ -420,7 +362,7 @@ static void subscription_configure(uint16_t addr)
 		return;
 	}
 }
- // work with this
+
 static void test_tx_ext_model(void)
 {
 	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
@@ -714,57 +656,40 @@ static void test_tx_transmit(void)
 	provision(UNICAST_ADDR1);
 	common_configure(UNICAST_ADDR1);
 
-	// Send a single message
+	k_sem_init(&publish_sem, 0, 1);
 
+	/* Network retransmissions has to be disabled so that the legacy advertiser sleeps for the
+	 * least possible time, which is 50ms. This will let the access layer publish a message
+	 * with 50ms retransmission interval.
+	 */
+	err = bt_mesh_cfg_cli_net_transmit_set(0, UNICAST_ADDR1,
+				BT_MESH_TRANSMIT(0, CONFIG_BT_MESH_NETWORK_TRANSMIT_INTERVAL),
+				&status);
+	if (err || status != BT_MESH_TRANSMIT(0, CONFIG_BT_MESH_NETWORK_TRANSMIT_INTERVAL)) {
+		FAIL("Net transmit set failed (err %d, status %u)", err,
+		     status);
+	}
 
-	// k_sem_init(&publish_sem, 0, 1);
+	publish_allow = true;
+	model->pub->retr_update = true;
 
-	// /* Network retransmissions has to be disabled so that the legacy advertiser sleeps for the
-	//  * least possible time, which is 50ms. This will let the access layer publish a message
-	//  * with 50ms retransmission interval.
-	//  */
-	// err = bt_mesh_cfg_cli_net_transmit_set(0, UNICAST_ADDR1,
-	// 			BT_MESH_TRANSMIT(0, CONFIG_BT_MESH_NETWORK_TRANSMIT_INTERVAL),
-	// 			&status);
-	// if (err || status != BT_MESH_TRANSMIT(0, CONFIG_BT_MESH_NETWORK_TRANSMIT_INTERVAL)) {
-	// 	FAIL("Net transmit set failed (err %d, status %u)", err,
-	// 	     status);
-	// }
+	for (size_t i = 0; i < ARRAY_SIZE(test_transmit); i++) {
+		pub_param_set(0, test_transmit[i]);
 
-	// publish_allow = true;
-	// model->pub->retr_update = true;
+		int32_t interval = BT_MESH_PUB_TRANSMIT_INT(test_transmit[i]);
+		int count = BT_MESH_PUB_TRANSMIT_COUNT(test_transmit[i]);
 
-	// for (size_t i = 0; i < ARRAY_SIZE(test_transmit); i++) {
-	// 	pub_param_set(0, test_transmit[i]);
+		LOG_INF("Retransmission interval: %d, count: %d", interval, count);
 
-	// 	int32_t interval = BT_MESH_PUB_TRANSMIT_INT(test_transmit[i]);
-	// 	int count = BT_MESH_PUB_TRANSMIT_COUNT(test_transmit[i]);
+		/* Start publishing messages and measure jitter. */
+		msgf_publish();
+		pub_jitter_check(interval, count);
 
-	// 	LOG_INF("Retransmission interval: %d, count: %d", interval, count);
-
-	// 	/* Start publishing messages and measure jitter. */
-	// 	msgf_publish();
-	// 	pub_jitter_check(interval, count);
-
-	// 	/* Let the receiver hit the first semaphore. */
-	// 	k_sleep(K_SECONDS(1));
-	// }
+		/* Let the receiver hit the first semaphore. */
+		k_sleep(K_SECONDS(1));
+	}
 
 	PASS();
-}
-
-static void test_rx_transmit(void)
-{
-	struct bt_mesh_model *model = &models[2];
-	uint8_t status;
-	int err;
-
-	bt_mesh_test_cfg_set(NULL, 60);
-	bt_mesh_device_setup(&prov, &local_comp);
-	provision(UNICAST_ADDR1);
-	common_configure(UNICAST_ADDR1);
-
-	// Recieve a single message
 }
 
 /* Receive a published message and check retransmission interval by measuring interval between
@@ -789,201 +714,114 @@ static void test_rx_transmit(void)
 	PASS();
 }
 
-// /* Cancel one of messages to be published and check that the next one is published when next period
-//  * starts.
-//  */
-// static void test_tx_cancel(void)
-// {
-// 	struct bt_mesh_model *model = &models[2];
-// 	int err;
-
-// 	bt_mesh_test_cfg_set(NULL, 20);
-// 	bt_mesh_device_setup(&prov, &local_comp);
-// 	provision(UNICAST_ADDR1);
-// 	common_configure(UNICAST_ADDR1);
-
-// 	k_sem_init(&publish_sem, 0, 1);
-
-// 	model->pub->retr_update = true;
-
-// 	for (size_t i = 0; i < ARRAY_SIZE(test_cancel); i++) {
-// 		pub_param_set(test_cancel[i].period, test_cancel[i].transmit);
-
-// 		msgf_publish();
-// 		publish_allow = true;
-// 		int64_t timestamp = k_uptime_get();
-
-// 		/* Send few messages except one that is to be cancelled. */
-// 		for (size_t j = 0; j < test_cancel[i].msgs - 1; j++) {
-// 			err = k_sem_take(&publish_sem, K_SECONDS(20));
-// 			if (err) {
-// 				FAIL("Send timed out");
-// 			}
-// 		}
-
-// 		/* Cancel the next publication. */
-// 		publish_allow = false;
-// 		k_sleep(K_MSEC(test_cancel[i].sleep));
-
-// 		/* Reenable publication a wait for a next message to be published. */
-// 		publish_allow = true;
-// 		err = k_sem_take(&publish_sem, K_SECONDS(20));
-// 		if (err) {
-// 			FAIL("Send timed out");
-// 		}
-
-// 		/* Disable periodic publication before the next test iteration. */
-// 		publish_allow = false;
-
-// 		/* If the canceled message is also sent, the semaphore will be released earlier than
-// 		 * expected.
-// 		 */
-// 		int32_t time_delta = k_uptime_delta(&timestamp);
-// 		int32_t jitter = llabs(time_delta - test_cancel[i].duration);
-
-// 		LOG_DBG("Send time: %d delta: %d", (int32_t)timestamp, time_delta);
-// 		LOG_INF("Send jitter: %d", jitter);
-// 		ASSERT_TRUE(jitter <= 10);
-
-// 		/* Let the receiver hit the first semaphore. */
-// 		k_sleep(K_SECONDS(1));
-// 	}
-
-// 	PASS();
-// }
-
-// /* Receive all published messages and ensure that cancelled message is not received. */
-// static void test_rx_cancel(void)
-// {
-// 	bt_mesh_test_cfg_set(NULL, 20);
-// 	bt_mesh_device_setup(&prov, &local_comp);
-// 	provision(UNICAST_ADDR2);
-// 	common_configure(UNICAST_ADDR2);
-
-// 	k_sem_init(&publish_sem, 0, 1);
-
-// 	for (size_t i = 0; i < ARRAY_SIZE(test_cancel); i++) {
-// 		int64_t timestamp;
-// 		int err;
-
-// 		/* Wait for the first published message. */
-// 		err = k_sem_take(&publish_sem, K_SECONDS(20));
-// 		if (err) {
-// 			FAIL("Recv timed out");
-// 		}
-
-// 		timestamp = k_uptime_get();
-
-// 		/* Wait for the rest messages to be published (incl. the next after cancelled one).
-// 		 */
-// 		for (size_t j = 0; j < test_cancel[i].msgs; j++) {
-// 			err = k_sem_take(&publish_sem, K_SECONDS(20));
-// 			if (err) {
-// 				FAIL("Recv timed out");
-// 			}
-// 		}
-
-// 		/* If the canceled message is received, the semaphore will be released earlier than
-// 		 * expected.
-// 		 */
-// 		int32_t time_delta = k_uptime_delta(&timestamp);
-// 		int32_t jitter = llabs(time_delta - test_cancel[i].duration);
-
-// 		LOG_DBG("Recv time: %d delta: %d", (int32_t)timestamp, time_delta);
-// 		LOG_INF("Recv jitter: %d", jitter);
-// 		ASSERT_TRUE(jitter <= RX_JITTER_MAX);
-// 	}
-
-// 	PASS();
-// }
-
-
-// /*todo: update signature */ void cb(void)
-// {
-// 	/* prepate message context `bt_mesh_msg_ctx` to send a message to ADDR2*/ 
-// 	/* call ...cli_set_unack()*/
-// 	/* schedule next kdelayed work at 50 ms after this */
-// }
-void my_msg(void)
+/* Cancel one of messages to be published and check that the next one is published when next period
+ * starts.
+ */
+static void test_tx_cancel(void)
 {
-	struct bt_mesh_msg_ctx ctx = {
-    .addr = UNICAST_ADDR2,
-	};
-// void my_msg(void)
-// {
-// 	struct bt_mesh_msg_ctx ctx = {
-//     .addr = UNICAST_ADDR2,
-// 	};
-void my_msg(void)
-{
-	struct bt_mesh_msg_ctx ctx = {
-    .addr = UNICAST_ADDR2,
-	};
-// void my_msg(void)
-// {
-// 	struct bt_mesh_msg_ctx ctx = {
-//     .addr = UNICAST_ADDR2,
-// 	};
-void my_msg(void)
-{
-	struct bt_mesh_msg_ctx ctx = {
-    .addr = UNICAST_ADDR2,
-	};
-// void my_msg(void)
-// {
-// 	struct bt_mesh_msg_ctx ctx = {
-//     .addr = UNICAST_ADDR2,
-// 	};
-void my_msg(void)
-{
-	struct bt_mesh_msg_ctx ctx = {
-    .addr = UNICAST_ADDR2,
-	};
+	struct bt_mesh_model *model = &models[2];
+	int err;
 
-}
-// }
-}
-// }
-}
-// }
-}
-
-/* define k_work_delayable item and initialize it */
-static struct k_work_delayable test_work;
-static void test_work_cb(struct k_work *work)
-{
-	k_work_reschedule(&test_work, K_MSEC(50));
-}
-
-static void test_tx_manymsgs(void)
-{
-	//bt_mesh_test_cfg_set(NULL, 20);
+	bt_mesh_test_cfg_set(NULL, 20);
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR1);
 	common_configure(UNICAST_ADDR1);
-	k_work_init_delayable(&test_work, test_work_cb);
-	/* trigger k_work_delayable every 50 ms*/
-	k_work_reschedule(&test_work, K_MSEC(50));
 
+	k_sem_init(&publish_sem, 0, 1);
+
+	model->pub->retr_update = true;
+
+	for (size_t i = 0; i < ARRAY_SIZE(test_cancel); i++) {
+		pub_param_set(test_cancel[i].period, test_cancel[i].transmit);
+
+		msgf_publish();
+		publish_allow = true;
+		int64_t timestamp = k_uptime_get();
+
+		/* Send few messages except one that is to be cancelled. */
+		for (size_t j = 0; j < test_cancel[i].msgs - 1; j++) {
+			err = k_sem_take(&publish_sem, K_SECONDS(20));
+			if (err) {
+				FAIL("Send timed out");
+			}
+		}
+
+		/* Cancel the next publication. */
+		publish_allow = false;
+		k_sleep(K_MSEC(test_cancel[i].sleep));
+
+		/* Reenable publication a wait for a next message to be published. */
+		publish_allow = true;
+		err = k_sem_take(&publish_sem, K_SECONDS(20));
+		if (err) {
+			FAIL("Send timed out");
+		}
+
+		/* Disable periodic publication before the next test iteration. */
+		publish_allow = false;
+
+		/* If the canceled message is also sent, the semaphore will be released earlier than
+		 * expected.
+		 */
+		int32_t time_delta = k_uptime_delta(&timestamp);
+		int32_t jitter = llabs(time_delta - test_cancel[i].duration);
+
+		LOG_DBG("Send time: %d delta: %d", (int32_t)timestamp, time_delta);
+		LOG_INF("Send jitter: %d", jitter);
+		ASSERT_TRUE(jitter <= 10);
+
+		/* Let the receiver hit the first semaphore. */
+		k_sleep(K_SECONDS(1));
+	}
+
+	PASS();
 }
 
-
-static void test_rx_manymsgs(void)
+/* Receive all published messages and ensure that cancelled message is not received. */
+static void test_rx_cancel(void)
 {
-	//bt_mesh_test_cfg_set(NULL, 20);
+	bt_mesh_test_cfg_set(NULL, 20);
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR2);
 	common_configure(UNICAST_ADDR2);
 
+	k_sem_init(&publish_sem, 0, 1);
+
+	for (size_t i = 0; i < ARRAY_SIZE(test_cancel); i++) {
+		int64_t timestamp;
+		int err;
+
+		/* Wait for the first published message. */
+		err = k_sem_take(&publish_sem, K_SECONDS(20));
+		if (err) {
+			FAIL("Recv timed out");
+		}
+
+		timestamp = k_uptime_get();
+
+		/* Wait for the rest messages to be published (incl. the next after cancelled one).
+		 */
+		for (size_t j = 0; j < test_cancel[i].msgs; j++) {
+			err = k_sem_take(&publish_sem, K_SECONDS(20));
+			if (err) {
+				FAIL("Recv timed out");
+			}
+		}
+
+		/* If the canceled message is received, the semaphore will be released earlier than
+		 * expected.
+		 */
+		int32_t time_delta = k_uptime_delta(&timestamp);
+		int32_t jitter = llabs(time_delta - test_cancel[i].duration);
+
+		LOG_DBG("Recv time: %d delta: %d", (int32_t)timestamp, time_delta);
+		LOG_INF("Recv jitter: %d", jitter);
+		ASSERT_TRUE(jitter <= RX_JITTER_MAX);
+	}
+
+	PASS();
 }
 
-
-	uint8_t div;
-	int32_t period_ms;
-} test_period[] = {
-	{ BT_MESH_PUB_PERIOD_100MS(5), 0, 500 },
-	{ BT_MESH_PUB_PERIOD_SEC(2),   0, 2000 },
-	{ BT_MESH_PUB_PERIOD_10SEC(1), 0, 10000 },
 #define TEST_CASE(role, name, description)                     \
 	{                                                      \
 		.test_id = "access_" #role "_" #name,          \
@@ -1002,8 +840,6 @@ static const struct bst_test_instance test_access[] = {
 	TEST_CASE(rx, transmit, "Access: Receive retransmitted messages"),
 	TEST_CASE(tx, cancel, "Access: Cancel a message during publication"),
 	TEST_CASE(rx, cancel, "Access: Receive published messages except cancelled"),
-	TEST_CASE(tx, manymsgs, "Send many messages"),
-	TEST_CASE(rx, manymsgs, "Receive many messages"),
 
 	BSTEST_END_MARKER
 };
@@ -1013,17 +849,3 @@ struct bst_test_list *test_access_install(struct bst_test_list *tests)
 	tests = bst_add_tests(tests, test_access);
 	return tests;
 }
-
-
-
-/* prepate message context `bt_mesh_msg_ctx` to send a message to ADDR2*/ 
-/* call ...cli_set_unack()*/
-/* schedule next kdelayed work at 50 ms after this 
-}
-void my_msg(void)
-{
-struct bt_mesh_msg_ctx ctx = {
-.addr = UNICAST_ADDR2,
-};
-
-}d messages except cancelled"), */

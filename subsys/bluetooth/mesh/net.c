@@ -514,8 +514,8 @@ int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 	const struct bt_mesh_net_cred *cred;
 	int err;
 
-	uint8_t appkey[];
-	uint8_t netkey[];
+	// uint8_t appkey[];
+	// uint8_t netkey[];
 
 	// Hacky decrypt of message to se the content and do whatever you want when you know the content
 
