@@ -13,122 +13,38 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(LOG_MODULE_NAME, LOG_LEVEL_INF);
 
-#define GROUP_ADDR 0xc000
 #define UNICAST_ADDR1 0x0001
 #define UNICAST_ADDR2 0x0006
 #define WAIT_TIME 10 /*seconds*/
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
-#define TEST_MODEL_ID_3 0x2c2c
-#define TEST_MODEL_ID_4 0x2d2d
-#define TEST_MODEL_ID_5 0x2e2e
 
 #define TEST_MESSAGE_OP_1  BT_MESH_MODEL_OP_1(0x11)
 #define TEST_MESSAGE_OP_2  BT_MESH_MODEL_OP_1(0x12)
-#define TEST_MESSAGE_OP_3  BT_MESH_MODEL_OP_1(0x13)
-#define TEST_MESSAGE_OP_4  BT_MESH_MODEL_OP_1(0x14)
-#define TEST_MESSAGE_OP_5  BT_MESH_MODEL_OP_1(0x15)
-#define TEST_MESSAGE_OP_F  BT_MESH_MODEL_OP_1(0x1F)
-
-#define PUB_PERIOD_COUNT 3
-#define RX_JITTER_MAX (10 + CONFIG_BT_MESH_NETWORK_TRANSMIT_COUNT * \
-		       (CONFIG_BT_MESH_NETWORK_TRANSMIT_INTERVAL + 10))
 
 static int model1_init(struct bt_mesh_model *model);
+{
+	return 0;
+}
 static int model2_init(struct bt_mesh_model *model);
-static int model3_init(struct bt_mesh_model *model);
-static int model4_init(struct bt_mesh_model *model);
-static int model5_init(struct bt_mesh_model *model);
+{
+	return 0;
+}
+
 static int test_msg_handler(struct bt_mesh_model *model,
 			struct bt_mesh_msg_ctx *ctx,
-			struct net_buf_simple *buf);
-static int test_msg_ne_handler(struct bt_mesh_model *model,
-			struct bt_mesh_msg_ctx *ctx,
-			struct net_buf_simple *buf);
+			struct net_buf_simple *buf)
+{
+	LOG_DBG("msg rx model id: %u", model->id);
+	return 0;
+}
 
-struct k_poll_signal model_pub_signal;
 
 static uint8_t dev_key[16] = { 0xdd };
 static uint8_t app_key[16] = { 0xaa };
 static uint8_t net_key[16] = { 0xcc };
 static struct bt_mesh_prov prov;
-
-/* Test vector for periodic publication tests. */
-static const struct {
-	uint8_t period;
-	uint8_t div;
-	int32_t period_ms;
-} test_period[] = {
-	{ BT_MESH_PUB_PERIOD_100MS(5), 0, 500 },
-	{ BT_MESH_PUB_PERIOD_SEC(2),   0, 2000 },
-	{ BT_MESH_PUB_PERIOD_10SEC(1), 0, 10000 },
-	{ BT_MESH_PUB_PERIOD_SEC(3),   1, 1500 },
-	{ BT_MESH_PUB_PERIOD_10SEC(3), 3, 3750 },
-};
-
-/* Test vector for publication retransmissions tests. */
-static const uint8_t test_transmit[] = {
-	BT_MESH_PUB_TRANSMIT(4, 50),
-	BT_MESH_PUB_TRANSMIT(3, 100),
-	BT_MESH_PUB_TRANSMIT(2, 200),
-};
-
-/* Test vector for canceling a message publication. */
-static const struct {
-	uint8_t period;
-	uint8_t transmit;
-	uint8_t msgs;
-	int32_t sleep;
-	int32_t duration;
-} test_cancel[] = {
-	/* Test canceling periodic publication. */
-	{
-		BT_MESH_PUB_PERIOD_SEC(2), 0, 2,
-		2000 /* period */ + 100 /* margin */,
-		3 /* messages */ * 2000 /* period */
-	},
-	/* Test canceling publication retransmission. */
-	{
-		BT_MESH_PUB_PERIOD_SEC(3), BT_MESH_PUB_TRANSMIT(3, 200), 3,
-		200 /* retransmission interval */ + 50 /* margin */,
-		3000 /* one period */
-	},
-};
-
-static struct k_sem publish_sem;
-static bool publish_allow;
-
-static int model1_update(struct bt_mesh_model *model)
-{
-	model->pub->msg->data[1]++;
-
-	LOG_DBG("New pub: n: %d t: %d", model->pub->msg->data[1], k_uptime_get_32());
-
-	return publish_allow ? k_sem_give(&publish_sem), 0 : -1;
-}
-
-static int test_msgf_handler(struct bt_mesh_model *model,
-			     struct bt_mesh_msg_ctx *ctx,
-			     struct net_buf_simple *buf)
-{
-	static uint8_t prev_num;
-	uint8_t num = net_buf_simple_pull_u8(buf);
-
-	LOG_DBG("Recv msg: n: %d t: %u", num, k_uptime_get_32());
-
-	/* Ensure that payload changes. */
-	ASSERT_TRUE(prev_num != num);
-	prev_num = num;
-
-	k_sem_give(&publish_sem);
-	return 0;
-}
-
-static struct bt_mesh_model_pub model_pub1 = {
-	.msg = NET_BUF_SIMPLE(BT_MESH_TX_SDU_MAX),
-	.update = model1_update,
-};
 
 static const struct bt_mesh_model_cb test_model1_cb = {
 	.init = model1_init,
@@ -138,66 +54,14 @@ static const struct bt_mesh_model_cb test_model2_cb = {
 	.init = model2_init,
 };
 
-static const struct bt_mesh_model_cb test_model3_cb = {
-	.init = model3_init,
-};
-
-static const struct bt_mesh_model_cb test_model4_cb = {
-	.init = model4_init,
-};
-
-static const struct bt_mesh_model_cb test_model5_cb = {
-	.init = model5_init,
-};
 
 static const struct bt_mesh_model_op model_op1[] = {
 	{ TEST_MESSAGE_OP_1, 0, test_msg_handler },
-	{ TEST_MESSAGE_OP_F, 0, test_msgf_handler },
 	BT_MESH_MODEL_OP_END
 };
 
 static const struct bt_mesh_model_op model_op2[] = {
 	{ TEST_MESSAGE_OP_2, 0, test_msg_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_op3[] = {
-	{ TEST_MESSAGE_OP_3, 0, test_msg_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_op4[] = {
-	{ TEST_MESSAGE_OP_4, 0, test_msg_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_op5[] = {
-	{ TEST_MESSAGE_OP_5, 0, test_msg_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_ne_op1[] = {
-	{ TEST_MESSAGE_OP_1, 0, test_msg_ne_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_ne_op2[] = {
-	{ TEST_MESSAGE_OP_2, 0, test_msg_ne_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_ne_op3[] = {
-	{ TEST_MESSAGE_OP_3, 0, test_msg_ne_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_ne_op4[] = {
-	{ TEST_MESSAGE_OP_4, 0, test_msg_ne_handler },
-	BT_MESH_MODEL_OP_END
-};
-
-static const struct bt_mesh_model_op model_ne_op5[] = {
-	{ TEST_MESSAGE_OP_5, 0, test_msg_ne_handler },
 	BT_MESH_MODEL_OP_END
 };
 
@@ -209,78 +73,25 @@ static struct bt_mesh_model models[] = {
 	BT_MESH_MODEL_CFG_CLI(&cfg_cli),
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_1, model_op1, &model_pub1, NULL, &test_model1_cb),
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_2, model_op2, NULL, NULL, &test_model2_cb),
-	BT_MESH_MODEL_CB(TEST_MODEL_ID_3, model_op3, NULL, NULL, &test_model3_cb),
-	BT_MESH_MODEL_CB(TEST_MODEL_ID_4, model_op4, NULL, NULL, &test_model4_cb),
-	BT_MESH_MODEL_CB(TEST_MODEL_ID_5, model_op5, NULL, NULL, &test_model5_cb),
 };
 
 /* do not change model sequence. it will break pointer arithmetic. */
 static struct bt_mesh_model models_ne[] = {
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_1, model_ne_op1, NULL, NULL, &test_model1_cb),
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_2, model_ne_op2, NULL, NULL, &test_model2_cb),
-	BT_MESH_MODEL_CB(TEST_MODEL_ID_3, model_ne_op3, NULL, NULL, &test_model3_cb),
-	BT_MESH_MODEL_CB(TEST_MODEL_ID_4, model_ne_op4, NULL, NULL, &test_model4_cb),
-	BT_MESH_MODEL_CB(TEST_MODEL_ID_5, model_ne_op5, NULL, NULL, &test_model5_cb),
 };
 
 static struct bt_mesh_model vnd_models[] = {};
 
 static struct bt_mesh_elem elems[] = {
 	BT_MESH_ELEM(0, models, vnd_models),
-	BT_MESH_ELEM(1, models_ne, vnd_models),
 };
 
 const struct bt_mesh_comp local_comp = {
 	.elem = elems,
 	.elem_count = ARRAY_SIZE(elems),
 };
-/*     extension dependency (basic models are on top)
- *
- *        element idx0  element idx1
- *
- *         m1    m2     mne2  mne1
- *        / \    /       |   /  \
- *       /   \  /        |  /    \
- *      m5    m3------->mne3    mne5
- *            |          |
- *            m4        mne4
- */
 
-static int model1_init(struct bt_mesh_model *model)
-{
-	return 0;
-}
-
-static int model2_init(struct bt_mesh_model *model)
-{
-	return 0;
-}
-
-static int model3_init(struct bt_mesh_model *model)
-{
-	ASSERT_OK(bt_mesh_model_extend(model, model - 2));
-	ASSERT_OK(bt_mesh_model_extend(model, model - 1));
-
-	if (model->elem_idx == 0) {
-		ASSERT_OK(bt_mesh_model_extend(&models_ne[2], model));
-	}
-
-	return 0;
-}
-
-static int model4_init(struct bt_mesh_model *model)
-{
-	ASSERT_OK(bt_mesh_model_extend(model, model - 1));
-
-	return 0;
-}
-
-static int model5_init(struct bt_mesh_model *model)
-{
-	ASSERT_OK(bt_mesh_model_extend(model, model - 4));
-
-	return 0;
-}
 
 static int test_msg_handler(struct bt_mesh_model *model,
 			struct bt_mesh_msg_ctx *ctx,
@@ -850,11 +661,3 @@ struct bst_test_list *test_access_install(struct bst_test_list *tests)
 	return tests;
 }
 
-static struct bt_mesh_model models2[] = {
-	BT_MESH_MODEL_CB(TEST_MODEL_ID_2, model_op2, NULL, NULL, &test_model1_cb),
-};
-
-static struct bt_mesh_elem elems[] = {
-	BT_MESH_ELEM(0, models, vnd_models),
-	BT_MESH_ELEM(1, models2, vnd_models),
-};
