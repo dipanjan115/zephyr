@@ -151,7 +151,6 @@ static void test_sub_ext_model(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR2);
 	common_configure(UNICAST_ADDR2);
-	printk("Something!!\n");
 
 	PASS();
 }

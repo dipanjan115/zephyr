@@ -826,7 +826,7 @@ void bt_mesh_net_recv(struct net_buf_simple *data, int8_t rssi,
 	NET_BUF_SIMPLE_DEFINE(buf, BT_MESH_NET_MAX_PDU_LEN);
 	struct bt_mesh_net_rx rx = { .ctx.recv_rssi = rssi };
 	struct net_buf_simple_state state;
-
+	// LOG_INF("Current Time (net_recv) (%lld ms)", k_uptime_get());
 	LOG_DBG("rssi %d net_if %u", rssi, net_if);
 
 	if (!bt_mesh_is_provisioned()) {
