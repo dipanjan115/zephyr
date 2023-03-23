@@ -15,14 +15,14 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME, LOG_LEVEL_INF);
 
 #define UNICAST_ADDR1 0x0001
 #define UNICAST_ADDR2 0x0006
-#define WAIT_TIME 10 /*seconds*/
+#define WAIT_TIME     10 /*seconds*/
 
-#define TEST_MODEL_ID_1 0x2a2a
-#define TEST_MESSAGE_OP_1  BT_MESH_MODEL_OP_1(0x11)
+#define TEST_MODEL_ID_1	  0x2a2a
+#define TEST_MESSAGE_OP_1 BT_MESH_MODEL_OP_1(0x11)
 
-static uint8_t dev_key[16] = { 0xdd };
-static uint8_t app_key[16] = { 0xaa };
-static uint8_t net_key[16] = { 0xcc };
+static uint8_t dev_key[16] = {0xdd};
+static uint8_t app_key[16] = {0xaa};
+static uint8_t net_key[16] = {0xcc};
 static struct bt_mesh_prov prov;
 
 static int model1_init(struct bt_mesh_model *model)
@@ -30,9 +30,8 @@ static int model1_init(struct bt_mesh_model *model)
 	return 0;
 }
 
-static int test_msg_handler(struct bt_mesh_model *model,
-			struct bt_mesh_msg_ctx *ctx,
-			struct net_buf_simple *buf)
+static int test_msg_handler(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *ctx,
+			    struct net_buf_simple *buf)
 {
 	printk("MESSAGE!\n");
 	return 0;
@@ -42,10 +41,8 @@ static const struct bt_mesh_model_cb test_model1_cb = {
 	.init = model1_init,
 };
 
-static const struct bt_mesh_model_op model_op1[] = {
-	{ TEST_MESSAGE_OP_1, 0, test_msg_handler },
-	BT_MESH_MODEL_OP_END
-};
+static const struct bt_mesh_model_op model_op1[] = {{TEST_MESSAGE_OP_1, 0, test_msg_handler},
+						    BT_MESH_MODEL_OP_END};
 
 static struct bt_mesh_cfg_cli cfg_cli;
 
@@ -96,7 +93,7 @@ static void test_tx_ext_model(void)
 		.send_ttl = BT_MESH_TTL_DEFAULT,
 	};
 
-	for(int i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++) {
 		BT_MESH_MODEL_BUF_DEFINE(msg, TEST_MESSAGE_OP_1, 0);
 		bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
 		bt_mesh_model_send(&models[2], &ctx, &msg, NULL, NULL);
@@ -115,20 +112,17 @@ static void test_sub_ext_model(void)
 	PASS();
 }
 
-#define TEST_CASE(role, name, description)                     \
-	{                                                      \
-		.test_id = "access_" #role "_" #name,          \
-		.test_descr = description,                     \
-		.test_tick_f = bt_mesh_test_timeout,           \
-		.test_main_f = test_##role##_##name,           \
+#define TEST_CASE(role, name, description)                                                         \
+	{                                                                                          \
+		.test_id = "access_" #role "_" #name, .test_descr = description,                   \
+		.test_tick_f = bt_mesh_test_timeout, .test_main_f = test_##role##_##name,          \
 	}
 
 static const struct bst_test_instance test_access[] = {
 	TEST_CASE(tx, ext_model, "Access: tx data of extended models"),
 	TEST_CASE(sub, ext_model, "Access: data subscription of extended models"),
 
-	BSTEST_END_MARKER
-};
+	BSTEST_END_MARKER};
 
 struct bst_test_list *test_access_install(struct bst_test_list *tests)
 {
