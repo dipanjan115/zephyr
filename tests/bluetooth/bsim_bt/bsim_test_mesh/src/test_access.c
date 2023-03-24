@@ -129,7 +129,7 @@ static void test_tx_ext_model(void)
 		.send_rel = false,
 		.send_ttl = BT_MESH_TTL_DEFAULT,
 	};
-
+	// use k_work instread of the loop 50ms
 	for (int i = 0; i < 10; i++) {
 		BT_MESH_MODEL_BUF_DEFINE(msg, TEST_MESSAGE_OP_1, 0);
 		bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
