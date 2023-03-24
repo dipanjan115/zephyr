@@ -108,12 +108,6 @@ static void common_configure(uint16_t addr)
 		return;
 	}
 
-	// err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr + 1, 0, TEST_MODEL_ID_1, &status);
-	// if (err || status) {
-	// 	FAIL("Model %#4x bind failed (err %d, status %u)", TEST_MODEL_ID_1, err, status);
-	// 	return;
-	// }
-
 	err = bt_mesh_cfg_cli_net_transmit_set(0, addr, BT_MESH_TRANSMIT(2, 20), &status);
 	if (err || status != BT_MESH_TRANSMIT(2, 20)) {
 		FAIL("Net transmit set failed (err %d, status %u)", err, status);
