@@ -159,7 +159,6 @@ static void test_tx_ext_model(void)
 	// 	bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
 	// 	bt_mesh_model_send(&models[2], &ctx, &msg, NULL, NULL);
 	// }
-	
 	k_work_init_delayable(&delayed_work, send_message);
 	k_work_reschedule(&delayed_work, K_MSEC(50));
 	PASS();
