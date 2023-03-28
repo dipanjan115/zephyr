@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+#include <zephyr/kernel.h>
 #include "mesh_test.h"
 #include "mesh/net.h"
 #include "mesh/access.h"
@@ -127,7 +128,7 @@ static void send_message(struct k_work *work)
 		.send_rel = false,
 		.send_ttl = BT_MESH_TTL_DEFAULT,
 	};
-	
+
 	BT_MESH_MODEL_BUF_DEFINE(msg, TEST_MESSAGE_OP_1, 0);
 	bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
 	bt_mesh_model_send(&models[2], &ctx, &msg, NULL, NULL);
@@ -146,23 +147,34 @@ static void test_tx_ext_model(void)
 	provision(UNICAST_ADDR1);
 	common_configure(UNICAST_ADDR1);
 
-	// struct bt_mesh_msg_ctx ctx = {
-	// 	.net_idx = 0,
-	// 	.app_idx = 0,
-	// 	.addr = UNICAST_ADDR2,
-	// 	.send_rel = false,
-	// 	.send_ttl = BT_MESH_TTL_DEFAULT,
-	// };
 	// use k_work instread of the loop 50ms
-	// for (int i = 0; i < 10; i++) {
-	// 	BT_MESH_MODEL_BUF_DEFINE(msg, TEST_MESSAGE_OP_1, 0);
-	// 	bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
-	// 	bt_mesh_model_send(&models[2], &ctx, &msg, NULL, NULL);
-	// }
 	k_work_init_delayable(&delayed_work, send_message);
 	k_work_reschedule(&delayed_work, K_MSEC(50));
 	PASS();
 }
+
+// static void test_tx_ext_model(void)
+// {
+// 	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
+// 	bt_mesh_device_setup(&prov, &local_comp);
+// 	provision(UNICAST_ADDR1);
+// 	common_configure(UNICAST_ADDR1);
+
+// 	struct bt_mesh_msg_ctx ctx = {
+// 		.net_idx = 0,
+// 		.app_idx = 0,
+// 		.addr = UNICAST_ADDR2,
+// 		.send_rel = false,
+// 		.send_ttl = BT_MESH_TTL_DEFAULT,
+// 	};
+// 	// use k_work instread of the loop 50ms
+// 	for (int i = 0; i < 10; i++) {
+// 		BT_MESH_MODEL_BUF_DEFINE(msg, TEST_MESSAGE_OP_1, 0);
+// 		bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
+// 		bt_mesh_model_send(&models[2], &ctx, &msg, NULL, NULL);
+// 	}
+// 	PASS();
+// }
 
 static void test_sub_ext_model(void)
 {
