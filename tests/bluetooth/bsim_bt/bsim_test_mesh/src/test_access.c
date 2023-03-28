@@ -15,7 +15,7 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME, LOG_LEVEL_INF);
 
 #define UNICAST_ADDR1 0x0001
 #define UNICAST_ADDR2 0x0006
-#define WAIT_TIME     10 /*seconds*/
+#define WAIT_TIME 10 /*seconds*/
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b

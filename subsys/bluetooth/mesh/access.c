@@ -671,6 +671,7 @@ static int get_opcode(struct net_buf_simple *buf, uint32_t *opcode)
 		 * will declare the opcode in this way.
 		 */
 		*opcode |= net_buf_simple_pull_le16(buf);
+		LOG_DBG("Opcode 0x%02x", opcode);
 		return 0;
 	}
 
