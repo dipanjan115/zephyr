@@ -132,7 +132,9 @@ static void send_message(struct k_work *work)
 	BT_MESH_MODEL_BUF_DEFINE(msg, TEST_MESSAGE_OP_1, 0);
 	bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
 	bt_mesh_model_send(&models[2], &ctx, &msg, NULL, NULL);
+
 	count++;
+	
 	if (count < 10)
 	{
 		k_work_reschedule(&delayed_work, K_MSEC(50));
