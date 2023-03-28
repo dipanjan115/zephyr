@@ -3,7 +3,6 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-#include <zephyr/kernel.h>
 #include "mesh_test.h"
 #include "mesh/net.h"
 #include "mesh/access.h"
@@ -95,7 +94,7 @@ static void common_configure(uint16_t addr)
 {
 	uint8_t status;
 	int err;
-	// uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2};
+	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2};
 
 	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
 	if (err || status) {
@@ -103,10 +102,19 @@ static void common_configure(uint16_t addr)
 		return;
 	}
 
-	err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr, 0, TEST_MODEL_ID_1, &status);
-	if (err || status) {
-		FAIL("Model %#4x bind failed (err %d, status %u)", TEST_MODEL_ID_1, err, status);
-		return;
+	// err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr, 0, TEST_MODEL_ID_1, &status);
+	// if (err || status) {
+	// 	FAIL("Model %#4x bind failed (err %d, status %u)", TEST_MODEL_ID_1, err, status);
+	// 	return;
+	// }
+
+	for (int i = 0; i < ARRAY_SIZE(model_ids); i++) {
+		err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr, 0, model_ids[i], &status);
+		if (err || status) {
+			FAIL("Model %#4x bind failed (err %d, status %u)", model_ids[i], err,
+			     status);
+			return;
+		}
 	}
 
 	err = bt_mesh_cfg_cli_net_transmit_set(0, addr, BT_MESH_TRANSMIT(2, 20), &status);
@@ -129,17 +137,19 @@ static void send_message(struct k_work *work)
 		.send_ttl = BT_MESH_TTL_DEFAULT,
 	};
 
-	BT_MESH_MODEL_BUF_DEFINE(msg, TEST_MESSAGE_OP_1, 0);
-	bt_mesh_model_msg_init(&msg, TEST_MESSAGE_OP_1);
-	bt_mesh_model_send(&models[2], &ctx, &msg, NULL, NULL);
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
+	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
+	bt_mesh_model_send(&models[3], &ctx, &buf, NULL, NULL);
 
 	count++;
-	
-	if (count < 10)
-	{
+
+	if (count < 10) {
 		k_work_reschedule(&delayed_work, K_MSEC(50));
 	}
-
 }
 
 static void test_tx_ext_model(void)
@@ -154,7 +164,6 @@ static void test_tx_ext_model(void)
 	k_work_reschedule(&delayed_work, K_MSEC(50));
 	PASS();
 }
-
 
 static void test_sub_ext_model(void)
 {
