@@ -1,7 +1,8 @@
 Starting access_tx_ext_model as device #0
 Starting access_sub_ext_model as device #1
 Starting phy with 2 devices
-d_00: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-63-g5ad7457ab6bd ***
+d_00: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-64-gb39ce971863e ***
+d_01: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-64-gb39ce971863e ***
 d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
 d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
 d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
@@ -84,7 +85,6 @@ d_00: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_mod
 d_00: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 3: 80250a[0m
 d_00: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00008025[0m
 d_00: @00:00:00.008448 INFO: test_tx_ext_model PASSED
-d_01: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-63-g5ad7457ab6bd ***
 d_01: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
 d_01: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
 d_01: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
@@ -180,7 +180,7 @@ d_01: @00:00:00.061584  [00:00:00.061,553] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.061624  [00:00:00.061,614] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.061624  [00:00:00.061,614] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.061624  [00:00:00.061,614] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700000900010006565443cd2e7a[0m
-d_01: @00:00:00.061624  [00:00:00.061,614] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000009 from src 0x0001 to dst 0x0006
+d_01: @00:00:00.061624  [00:00:00.061,614] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000009
 d_01: @00:00:00.061624  [0m
 d_01: @00:00:00.061664  [00:00:00.061,645] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.061664  [00:00:00.061,645] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -200,7 +200,7 @@ d_01: @00:00:00.136504  [00:00:00.136,474] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.136544  [00:00:00.136,535] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.136544  [00:00:00.136,535] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.136544  [00:00:00.136,535] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700000a0001000656e6a002c523[0m
-d_01: @00:00:00.136544  [00:00:00.136,535] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00000a from src 0x0001 to dst 0x0006
+d_01: @00:00:00.136544  [00:00:00.136,535] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00000a
 d_01: @00:00:00.136544  [0m
 d_01: @00:00:00.136584  [00:00:00.136,566] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.136584  [00:00:00.136,566] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -224,7 +224,7 @@ d_01: @00:00:00.212698  [00:00:00.212,677] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.212738  [00:00:00.212,707] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.212738  [00:00:00.212,707] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.212738  [00:00:00.212,707] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700000b0001000656c10687b372[0m
-d_01: @00:00:00.212738  [00:00:00.212,707] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00000b from src 0x0001 to dst 0x0006
+d_01: @00:00:00.212738  [00:00:00.212,707] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00000b
 d_01: @00:00:00.212738  [0m
 d_01: @00:00:00.212778  [00:00:00.212,768] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.212778  [00:00:00.212,768] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -244,7 +244,7 @@ d_01: @00:00:00.284140  [00:00:00.284,118] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.284180  [00:00:00.284,179] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.284180  [00:00:00.284,179] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.284180  [00:00:00.284,179] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700000c00010006569310e35fdb[0m
-d_01: @00:00:00.284180  [00:00:00.284,179] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00000c from src 0x0001 to dst 0x0006
+d_01: @00:00:00.284180  [00:00:00.284,179] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00000c
 d_01: @00:00:00.284180  [0m
 d_01: @00:00:00.284220  [00:00:00.284,210] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.284220  [00:00:00.284,210] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -264,7 +264,7 @@ d_01: @00:00:00.357277  [00:00:00.357,269] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.357317  [00:00:00.357,299] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.357317  [00:00:00.357,299] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.357317  [00:00:00.357,299] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700000d00010006568e5cc78d54[0m
-d_01: @00:00:00.357317  [00:00:00.357,299] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00000d from src 0x0001 to dst 0x0006
+d_01: @00:00:00.357317  [00:00:00.357,299] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00000d
 d_01: @00:00:00.357317  [0m
 d_01: @00:00:00.357357  [00:00:00.357,330] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.357357  [00:00:00.357,330] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -289,7 +289,7 @@ d_01: @00:00:00.425811  [00:00:00.425,781] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.425851  [00:00:00.425,842] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.425851  [00:00:00.425,842] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.425851  [00:00:00.425,842] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700000e00010006560d917ba151[0m
-d_01: @00:00:00.425851  [00:00:00.425,842] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00000e from src 0x0001 to dst 0x0006
+d_01: @00:00:00.425851  [00:00:00.425,842] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00000e
 d_01: @00:00:00.425851  [0m
 d_01: @00:00:00.425891  [00:00:00.425,872] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.425891  [00:00:00.425,872] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -309,7 +309,7 @@ d_01: @00:00:00.506927  [00:00:00.506,896] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.506967  [00:00:00.506,958] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.506967  [00:00:00.506,958] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.506967  [00:00:00.506,958] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700000f0001000656ca26af411a[0m
-d_01: @00:00:00.506967  [00:00:00.506,958] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00000f from src 0x0001 to dst 0x0006
+d_01: @00:00:00.506967  [00:00:00.506,958] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00000f
 d_01: @00:00:00.506967  [0m
 d_01: @00:00:00.507007  [00:00:00.506,988] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.507007  [00:00:00.506,988] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -334,7 +334,7 @@ d_01: @00:00:00.580779  [00:00:00.580,749] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.580819  [00:00:00.580,810] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.580819  [00:00:00.580,810] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.580819  [00:00:00.580,810] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000010000100065631d9b77684[0m
-d_01: @00:00:00.580819  [00:00:00.580,810] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000010 from src 0x0001 to dst 0x0006
+d_01: @00:00:00.580819  [00:00:00.580,810] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000010
 d_01: @00:00:00.580819  [0m
 d_01: @00:00:00.580859  [00:00:00.580,841] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.580859  [00:00:00.580,841] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -354,7 +354,7 @@ d_01: @00:00:00.657553  [00:00:00.657,531] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.657593  [00:00:00.657,592] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.657593  [00:00:00.657,592] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.657593  [00:00:00.657,592] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000110001000656d1f21849d1[0m
-d_01: @00:00:00.657593  [00:00:00.657,592] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000011 from src 0x0001 to dst 0x0006
+d_01: @00:00:00.657593  [00:00:00.657,592] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000011
 d_01: @00:00:00.657593  [0m
 d_01: @00:00:00.657633  [00:00:00.657,623] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.657633  [00:00:00.657,623] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -379,7 +379,7 @@ d_01: @00:00:00.730215  [00:00:00.730,194] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.730255  [00:00:00.730,224] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.730255  [00:00:00.730,224] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.730255  [00:00:00.730,224] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700001200010006563db7920275[0m
-d_01: @00:00:00.730255  [00:00:00.730,224] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000012 from src 0x0001 to dst 0x0006
+d_01: @00:00:00.730255  [00:00:00.730,224] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000012
 d_01: @00:00:00.730255  [0m
 d_01: @00:00:00.730295  [00:00:00.730,285] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.730295  [00:00:00.730,285] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -399,7 +399,7 @@ d_01: @00:00:00.800697  [00:00:00.800,689] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.800737  [00:00:00.800,720] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.800737  [00:00:00.800,720] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.800737  [00:00:00.800,720] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000130001000656705ec7c8fd[0m
-d_01: @00:00:00.800737  [00:00:00.800,720] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000013 from src 0x0001 to dst 0x0006
+d_01: @00:00:00.800737  [00:00:00.800,720] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000013
 d_01: @00:00:00.800737  [0m
 d_01: @00:00:00.800777  [00:00:00.800,750] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.800777  [00:00:00.800,750] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -424,7 +424,7 @@ d_01: @00:00:00.874358  [00:00:00.874,328] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.874398  [00:00:00.874,389] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.874398  [00:00:00.874,389] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.874398  [00:00:00.874,389] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000140001000656731a1a588d[0m
-d_01: @00:00:00.874398  [00:00:00.874,389] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000014 from src 0x0001 to dst 0x0006
+d_01: @00:00:00.874398  [00:00:00.874,389] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000014
 d_01: @00:00:00.874398  [0m
 d_01: @00:00:00.874438  [00:00:00.874,420] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.874438  [00:00:00.874,420] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -444,7 +444,7 @@ d_01: @00:00:00.951446  [00:00:00.951,416] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:00.951486  [00:00:00.951,477] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:00.951486  [00:00:00.951,477] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:00.951486  [00:00:00.951,477] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000015000100065637167d4a84[0m
-d_01: @00:00:00.951486  [00:00:00.951,477] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000015 from src 0x0001 to dst 0x0006
+d_01: @00:00:00.951486  [00:00:00.951,477] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000015
 d_01: @00:00:00.951486  [0m
 d_01: @00:00:00.951526  [00:00:00.951,507] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:00.951526  [00:00:00.951,507] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -469,7 +469,7 @@ d_01: @00:00:01.016836  [00:00:01.016,815] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.016876  [00:00:01.016,845] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.016876  [00:00:01.016,845] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.016876  [00:00:01.016,845] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000016000100065623801e4254[0m
-d_01: @00:00:01.016876  [00:00:01.016,845] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000016 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.016876  [00:00:01.016,845] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000016
 d_01: @00:00:01.016876  [0m
 d_01: @00:00:01.016916  [00:00:01.016,906] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.016916  [00:00:01.016,906] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -494,7 +494,7 @@ d_01: @00:00:01.113699  [00:00:01.113,677] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.113739  [00:00:01.113,708] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.113739  [00:00:01.113,708] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.113739  [00:00:01.113,708] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000170001000656b7a66142ae[0m
-d_01: @00:00:01.113739  [00:00:01.113,708] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000017 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.113739  [00:00:01.113,708] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000017
 d_01: @00:00:01.113739  [0m
 d_01: @00:00:01.113779  [00:00:01.113,769] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.113779  [00:00:01.113,769] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -513,7 +513,7 @@ d_01: @00:00:01.165107  [00:00:01.165,100] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.165147  [00:00:01.165,130] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.165147  [00:00:01.165,130] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.165147  [00:00:01.165,130] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000018000100065605769927e3[0m
-d_01: @00:00:01.165147  [00:00:01.165,130] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000018 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.165147  [00:00:01.165,130] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000018
 d_01: @00:00:01.165147  [0m
 d_01: @00:00:01.165187  [00:00:01.165,161] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.165187  [00:00:01.165,161] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -533,7 +533,7 @@ d_01: @00:00:01.236144  [00:00:01.236,114] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.236184  [00:00:01.236,175] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.236184  [00:00:01.236,175] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.236184  [00:00:01.236,175] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000190001000656fdca931737[0m
-d_01: @00:00:01.236184  [00:00:01.236,175] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000019 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.236184  [00:00:01.236,175] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000019
 d_01: @00:00:01.236184  [0m
 d_01: @00:00:01.236224  [00:00:01.236,206] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.236224  [00:00:01.236,206] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -553,7 +553,7 @@ d_01: @00:00:01.311126  [00:00:01.311,096] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.311166  [00:00:01.311,157] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.311166  [00:00:01.311,157] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.311166  [00:00:01.311,157] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700001a000100065604c51941b3[0m
-d_01: @00:00:01.311166  [00:00:01.311,157] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00001a from src 0x0001 to dst 0x0006
+d_01: @00:00:01.311166  [00:00:01.311,157] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00001a
 d_01: @00:00:01.311166  [0m
 d_01: @00:00:01.311206  [00:00:01.311,187] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.311206  [00:00:01.311,187] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -578,7 +578,7 @@ d_01: @00:00:01.379477  [00:00:01.379,455] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.379517  [00:00:01.379,516] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.379517  [00:00:01.379,516] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.379517  [00:00:01.379,516] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700001b0001000656cd065834c5[0m
-d_01: @00:00:01.379517  [00:00:01.379,516] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00001b from src 0x0001 to dst 0x0006
+d_01: @00:00:01.379517  [00:00:01.379,516] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00001b
 d_01: @00:00:01.379517  [0m
 d_01: @00:00:01.379557  [00:00:01.379,547] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.379557  [00:00:01.379,547] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -598,7 +598,7 @@ d_01: @00:00:01.452017  [00:00:01.451,995] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.452057  [00:00:01.452,056] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.452057  [00:00:01.452,056] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.452057  [00:00:01.452,056] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700001c0001000656f05bb51a59[0m
-d_01: @00:00:01.452057  [00:00:01.452,056] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00001c from src 0x0001 to dst 0x0006
+d_01: @00:00:01.452057  [00:00:01.452,056] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00001c
 d_01: @00:00:01.452057  [0m
 d_01: @00:00:01.452097  [00:00:01.452,087] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.452097  [00:00:01.452,087] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -623,7 +623,7 @@ d_01: @00:00:01.518928  [00:00:01.518,920] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.518968  [00:00:01.518,951] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.518968  [00:00:01.518,951] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.518968  [00:00:01.518,951] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700001d00010006560f6413c109[0m
-d_01: @00:00:01.518968  [00:00:01.518,951] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00001d from src 0x0001 to dst 0x0006
+d_01: @00:00:01.518968  [00:00:01.518,951] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00001d
 d_01: @00:00:01.518968  [0m
 d_01: @00:00:01.519008  [00:00:01.518,981] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.519008  [00:00:01.518,981] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -643,7 +643,7 @@ d_01: @00:00:01.596984  [00:00:01.596,954] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.597024  [00:00:01.597,015] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.597024  [00:00:01.597,015] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.597024  [00:00:01.597,015] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700001e00010006566918d0dc73[0m
-d_01: @00:00:01.597024  [00:00:01.597,015] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00001e from src 0x0001 to dst 0x0006
+d_01: @00:00:01.597024  [00:00:01.597,015] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00001e
 d_01: @00:00:01.597024  [0m
 d_01: @00:00:01.597064  [00:00:01.597,045] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.597064  [00:00:01.597,045] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -668,7 +668,7 @@ d_01: @00:00:01.670348  [00:00:01.670,318] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.670388  [00:00:01.670,379] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.670388  [00:00:01.670,379] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.670388  [00:00:01.670,379] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700001f00010006560125a6098a[0m
-d_01: @00:00:01.670388  [00:00:01.670,379] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00001f from src 0x0001 to dst 0x0006
+d_01: @00:00:01.670388  [00:00:01.670,379] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00001f
 d_01: @00:00:01.670388  [0m
 d_01: @00:00:01.670428  [00:00:01.670,410] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.670428  [00:00:01.670,410] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -688,7 +688,7 @@ d_01: @00:00:01.747763  [00:00:01.747,741] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.747803  [00:00:01.747,802] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.747803  [00:00:01.747,802] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.747803  [00:00:01.747,802] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000200001000656b1ea2a5b08[0m
-d_01: @00:00:01.747803  [00:00:01.747,802] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000020 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.747803  [00:00:01.747,802] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000020
 d_01: @00:00:01.747803  [0m
 d_01: @00:00:01.747843  [00:00:01.747,833] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.747843  [00:00:01.747,833] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -713,7 +713,7 @@ d_01: @00:00:01.817618  [00:00:01.817,596] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.817658  [00:00:01.817,657] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.817658  [00:00:01.817,657] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.817658  [00:00:01.817,657] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000210001000656a298528c24[0m
-d_01: @00:00:01.817658  [00:00:01.817,657] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000021 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.817658  [00:00:01.817,657] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000021
 d_01: @00:00:01.817658  [0m
 d_01: @00:00:01.817698  [00:00:01.817,687] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.817698  [00:00:01.817,687] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -733,7 +733,7 @@ d_01: @00:00:01.890815  [00:00:01.890,808] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.890855  [00:00:01.890,838] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.890855  [00:00:01.890,838] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.890855  [00:00:01.890,838] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000220001000656dd8560082f[0m
-d_01: @00:00:01.890855  [00:00:01.890,838] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000022 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.890855  [00:00:01.890,838] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000022
 d_01: @00:00:01.890855  [0m
 d_01: @00:00:01.890895  [00:00:01.890,869] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.890895  [00:00:01.890,869] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -758,7 +758,7 @@ d_01: @00:00:01.970375  [00:00:01.970,367] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:01.970415  [00:00:01.970,397] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:01.970415  [00:00:01.970,397] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:01.970415  [00:00:01.970,397] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000230001000656b2df8cfc9b[0m
-d_01: @00:00:01.970415  [00:00:01.970,397] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000023 from src 0x0001 to dst 0x0006
+d_01: @00:00:01.970415  [00:00:01.970,397] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000023
 d_01: @00:00:01.970415  [0m
 d_01: @00:00:01.970455  [00:00:01.970,428] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:01.970455  [00:00:01.970,428] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -778,7 +778,7 @@ d_01: @00:00:02.044005  [00:00:02.043,975] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.044045  [00:00:02.044,036] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.044045  [00:00:02.044,036] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.044045  [00:00:02.044,036] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002400010006566ad72decff[0m
-d_01: @00:00:02.044045  [00:00:02.044,036] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000024 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.044045  [00:00:02.044,036] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000024
 d_01: @00:00:02.044045  [0m
 d_01: @00:00:02.044085  [00:00:02.044,067] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.044085  [00:00:02.044,067] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -803,7 +803,7 @@ d_01: @00:00:02.116759  [00:00:02.116,729] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.116799  [00:00:02.116,790] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.116799  [00:00:02.116,790] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.116799  [00:00:02.116,790] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000250001000656f05f7f28af[0m
-d_01: @00:00:02.116799  [00:00:02.116,790] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000025 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.116799  [00:00:02.116,790] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000025
 d_01: @00:00:02.116799  [0m
 d_01: @00:00:02.116839  [00:00:02.116,821] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.116839  [00:00:02.116,821] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -823,7 +823,7 @@ d_01: @00:00:02.189719  [00:00:02.189,697] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.189759  [00:00:02.189,758] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.189759  [00:00:02.189,758] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.189759  [00:00:02.189,758] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000026000100065660833bd07c[0m
-d_01: @00:00:02.189759  [00:00:02.189,758] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000026 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.189759  [00:00:02.189,758] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000026
 d_01: @00:00:02.189759  [0m
 d_01: @00:00:02.189799  [00:00:02.189,788] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.189799  [00:00:02.189,788] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -848,7 +848,7 @@ d_01: @00:00:02.265127  [00:00:02.265,106] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.265167  [00:00:02.265,136] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.265167  [00:00:02.265,136] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.265167  [00:00:02.265,136] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002700010006560cf5fd2b6f[0m
-d_01: @00:00:02.265167  [00:00:02.265,136] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000027 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.265167  [00:00:02.265,136] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000027
 d_01: @00:00:02.265167  [0m
 d_01: @00:00:02.265207  [00:00:02.265,197] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.265207  [00:00:02.265,197] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -868,7 +868,7 @@ d_01: @00:00:02.341072  [00:00:02.341,064] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.341112  [00:00:02.341,094] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.341112  [00:00:02.341,094] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.341112  [00:00:02.341,094] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000028000100065632bf23f467[0m
-d_01: @00:00:02.341112  [00:00:02.341,094] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000028 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.341112  [00:00:02.341,094] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000028
 d_01: @00:00:02.341112  [0m
 d_01: @00:00:02.341152  [00:00:02.341,125] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.341152  [00:00:02.341,125] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -893,7 +893,7 @@ d_01: @00:00:02.419716  [00:00:02.419,708] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.419756  [00:00:02.419,738] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.419756  [00:00:02.419,738] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.419756  [00:00:02.419,738] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000290001000656e1c2bfa8f5[0m
-d_01: @00:00:02.419756  [00:00:02.419,738] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000029 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.419756  [00:00:02.419,738] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000029
 d_01: @00:00:02.419756  [0m
 d_01: @00:00:02.419796  [00:00:02.419,769] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.419796  [00:00:02.419,769] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -913,7 +913,7 @@ d_01: @00:00:02.488006  [00:00:02.487,976] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.488046  [00:00:02.488,037] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.488046  [00:00:02.488,037] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.488046  [00:00:02.488,037] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002a00010006563209afab4f[0m
-d_01: @00:00:02.488046  [00:00:02.488,037] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00002a from src 0x0001 to dst 0x0006
+d_01: @00:00:02.488046  [00:00:02.488,037] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00002a
 d_01: @00:00:02.488046  [0m
 d_01: @00:00:02.488086  [00:00:02.488,067] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.488086  [00:00:02.488,067] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -933,7 +933,7 @@ d_01: @00:00:02.556479  [00:00:02.556,457] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.556519  [00:00:02.556,518] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.556519  [00:00:02.556,518] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.556519  [00:00:02.556,518] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002b000100065660138d2acf[0m
-d_01: @00:00:02.556519  [00:00:02.556,518] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00002b from src 0x0001 to dst 0x0006
+d_01: @00:00:02.556519  [00:00:02.556,518] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00002b
 d_01: @00:00:02.556519  [0m
 d_01: @00:00:02.556559  [00:00:02.556,549] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.556559  [00:00:02.556,549] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -948,7 +948,7 @@ d_01: @00:00:02.625143  [00:00:02.625,122] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.625183  [00:00:02.625,152] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.625183  [00:00:02.625,152] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.625183  [00:00:02.625,152] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002c0001000656e40b43fde2[0m
-d_01: @00:00:02.625183  [00:00:02.625,152] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00002c from src 0x0001 to dst 0x0006
+d_01: @00:00:02.625183  [00:00:02.625,152] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00002c
 d_01: @00:00:02.625183  [0m
 d_01: @00:00:02.625223  [00:00:02.625,213] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.625223  [00:00:02.625,213] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -963,7 +963,7 @@ d_01: @00:00:02.700294  [00:00:02.700,286] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.700334  [00:00:02.700,317] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.700334  [00:00:02.700,317] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.700334  [00:00:02.700,317] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002d0001000656ce705840cd[0m
-d_01: @00:00:02.700334  [00:00:02.700,317] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00002d from src 0x0001 to dst 0x0006
+d_01: @00:00:02.700334  [00:00:02.700,317] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00002d
 d_01: @00:00:02.700334  [0m
 d_01: @00:00:02.700374  [00:00:02.700,347] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.700374  [00:00:02.700,347] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -978,7 +978,7 @@ d_01: @00:00:02.771034  [00:00:02.771,026] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.771074  [00:00:02.771,057] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.771074  [00:00:02.771,057] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.771074  [00:00:02.771,057] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002e0001000656feac6b4426[0m
-d_01: @00:00:02.771074  [00:00:02.771,057] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00002e from src 0x0001 to dst 0x0006
+d_01: @00:00:02.771074  [00:00:02.771,057] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00002e
 d_01: @00:00:02.771074  [0m
 d_01: @00:00:02.771114  [00:00:02.771,087] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.771114  [00:00:02.771,087] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -993,7 +993,7 @@ d_01: @00:00:02.846190  [00:00:02.846,160] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.846230  [00:00:02.846,221] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.846230  [00:00:02.846,221] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.846230  [00:00:02.846,221] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700002f000100065645d7264421[0m
-d_01: @00:00:02.846230  [00:00:02.846,221] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00002f from src 0x0001 to dst 0x0006
+d_01: @00:00:02.846230  [00:00:02.846,221] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00002f
 d_01: @00:00:02.846230  [0m
 d_01: @00:00:02.846270  [00:00:02.846,252] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.846270  [00:00:02.846,252] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1008,7 +1008,7 @@ d_01: @00:00:02.920775  [00:00:02.920,745] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.920815  [00:00:02.920,806] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.920815  [00:00:02.920,806] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.920815  [00:00:02.920,806] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000300001000656c6c9bdad63[0m
-d_01: @00:00:02.920815  [00:00:02.920,806] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000030 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.920815  [00:00:02.920,806] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000030
 d_01: @00:00:02.920815  [0m
 d_01: @00:00:02.920855  [00:00:02.920,837] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.920855  [00:00:02.920,837] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1023,7 +1023,7 @@ d_01: @00:00:02.997885  [00:00:02.997,863] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:02.997925  [00:00:02.997,924] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:02.997925  [00:00:02.997,924] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:02.997925  [00:00:02.997,924] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000310001000656ba4eb46801[0m
-d_01: @00:00:02.997925  [00:00:02.997,924] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000031 from src 0x0001 to dst 0x0006
+d_01: @00:00:02.997925  [00:00:02.997,924] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000031
 d_01: @00:00:02.997925  [0m
 d_01: @00:00:02.997965  [00:00:02.997,955] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:02.997965  [00:00:02.997,955] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1038,7 +1038,7 @@ d_01: @00:00:03.073538  [00:00:03.073,516] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.073578  [00:00:03.073,577] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.073578  [00:00:03.073,577] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.073578  [00:00:03.073,577] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000032000100065643665ba5a0[0m
-d_01: @00:00:03.073578  [00:00:03.073,577] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000032 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.073578  [00:00:03.073,577] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000032
 d_01: @00:00:03.073578  [0m
 d_01: @00:00:03.073618  [00:00:03.073,608] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.073618  [00:00:03.073,608] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1053,7 +1053,7 @@ d_01: @00:00:03.155464  [00:00:03.155,456] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.155504  [00:00:03.155,487] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.155504  [00:00:03.155,487] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.155504  [00:00:03.155,487] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000330001000656e8b18ad2f2[0m
-d_01: @00:00:03.155504  [00:00:03.155,487] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000033 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.155504  [00:00:03.155,487] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000033
 d_01: @00:00:03.155504  [0m
 d_01: @00:00:03.155544  [00:00:03.155,517] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.155544  [00:00:03.155,517] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1068,7 +1068,7 @@ d_01: @00:00:03.232338  [00:00:03.232,330] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.232378  [00:00:03.232,360] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.232378  [00:00:03.232,360] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.232378  [00:00:03.232,360] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000034000100065693a9ba485c[0m
-d_01: @00:00:03.232378  [00:00:03.232,360] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000034 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.232378  [00:00:03.232,360] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000034
 d_01: @00:00:03.232378  [0m
 d_01: @00:00:03.232418  [00:00:03.232,391] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.232418  [00:00:03.232,391] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1083,7 +1083,7 @@ d_01: @00:00:03.298705  [00:00:03.298,675] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.298745  [00:00:03.298,736] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.298745  [00:00:03.298,736] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.298745  [00:00:03.298,736] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000035000100065619c902fcff[0m
-d_01: @00:00:03.298745  [00:00:03.298,736] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000035 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.298745  [00:00:03.298,736] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000035
 d_01: @00:00:03.298745  [0m
 d_01: @00:00:03.298785  [00:00:03.298,767] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.298785  [00:00:03.298,767] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1098,7 +1098,7 @@ d_01: @00:00:03.365530  [00:00:03.365,509] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.365570  [00:00:03.365,539] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.365570  [00:00:03.365,539] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.365570  [00:00:03.365,539] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 39070000360001000656d93d9ec4bb[0m
-d_01: @00:00:03.365570  [00:00:03.365,539] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000036 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.365570  [00:00:03.365,539] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000036
 d_01: @00:00:03.365570  [0m
 d_01: @00:00:03.365610  [00:00:03.365,600] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.365610  [00:00:03.365,600] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1113,7 +1113,7 @@ d_01: @00:00:03.436148  [00:00:03.436,126] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.436188  [00:00:03.436,187] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.436188  [00:00:03.436,187] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.436188  [00:00:03.436,187] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700003700010006569b4d3176a7[0m
-d_01: @00:00:03.436188  [00:00:03.436,187] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000037 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.436188  [00:00:03.436,187] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000037
 d_01: @00:00:03.436188  [0m
 d_01: @00:00:03.436228  [00:00:03.436,218] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.436228  [00:00:03.436,218] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1128,7 +1128,7 @@ d_01: @00:00:03.501503  [00:00:03.501,495] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.501543  [00:00:03.501,525] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.501543  [00:00:03.501,525] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.501543  [00:00:03.501,525] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 3907000038000100065693f8b5efb5[0m
-d_01: @00:00:03.501543  [00:00:03.501,525] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000038 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.501543  [00:00:03.501,525] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000038
 d_01: @00:00:03.501543  [0m
 d_01: @00:00:03.501583  [00:00:03.501,556] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.501583  [00:00:03.501,556] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1143,7 +1143,7 @@ d_01: @00:00:03.573730  [00:00:03.573,699] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.573770  [00:00:03.573,760] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.573770  [00:00:03.573,760] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.573770  [00:00:03.573,760] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700003900010006568b841962f2[0m
-d_01: @00:00:03.573770  [00:00:03.573,760] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x000039 from src 0x0001 to dst 0x0006
+d_01: @00:00:03.573770  [00:00:03.573,760] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x000039
 d_01: @00:00:03.573770  [0m
 d_01: @00:00:03.573810  [00:00:03.573,791] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.573810  [00:00:03.573,791] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m
@@ -1158,7 +1158,7 @@ d_01: @00:00:03.645782  [00:00:03.645,751] [0m<dbg> bt_mesh_net: net_decrypt: s
 d_01: @00:00:03.645822  [00:00:03.645,812] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: Decryption successful. Payload len 15[0m
 d_01: @00:00:03.645822  [00:00:03.645,812] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 ttl 7[0m
 d_01: @00:00:03.645822  [00:00:03.645,812] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: PDU: 390700003a00010006560685c2fe0c[0m
-d_01: @00:00:03.645822  [00:00:03.645,812] [0m<dbg> bt_mesh_net: bt_mesh_net_decode:  seq0x00003a from src 0x0001 to dst 0x0006
+d_01: @00:00:03.645822  [00:00:03.645,812] [0m<dbg> bt_mesh_net: bt_mesh_net_decode: src 0x0001 dst 0x0006 Seq 0x00003a
 d_01: @00:00:03.645822  [0m
 d_01: @00:00:03.645862  [00:00:03.645,843] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0x0000 src 0x0001 dst 0x0006[0m
 d_01: @00:00:03.645862  [00:00:03.645,843] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 1: 11[0m

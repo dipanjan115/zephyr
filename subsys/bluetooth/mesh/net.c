@@ -792,7 +792,7 @@ int bt_mesh_net_decode(struct net_buf_simple *in, enum bt_mesh_net_if net_if,
 
 	LOG_DBG("src 0x%04x dst 0x%04x ttl %u", rx->ctx.addr, rx->ctx.recv_dst, rx->ctx.recv_ttl);
 	LOG_DBG("PDU: %s", bt_hex(out->data, out->len));
-	LOG_DBG(" seq0x%06x from src 0x%04x to dst 0x%04x\n",rx->seq, rx->ctx.addr, rx->ctx.recv_dst);
+	LOG_DBG("src 0x%04x dst 0x%04x Seq 0x%06x\n", rx->ctx.addr, rx->ctx.recv_dst, rx->seq);
 	msg_cache_add(rx);
 
 	return 0;
@@ -803,7 +803,6 @@ void bt_mesh_net_recv(struct net_buf_simple *data, int8_t rssi, enum bt_mesh_net
 	NET_BUF_SIMPLE_DEFINE(buf, BT_MESH_NET_MAX_PDU_LEN);
 	struct bt_mesh_net_rx rx = {.ctx.recv_rssi = rssi};
 	struct net_buf_simple_state state;
-	// LOG_INF("Current Time (net_recv) (%lld ms)", k_uptime_get());
 	LOG_DBG("rssi %d net_if %u", rssi, net_if);
 
 	if (!bt_mesh_is_provisioned()) {
