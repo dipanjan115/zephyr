@@ -148,7 +148,7 @@ static void send_message(struct k_work *work)
 
 	count++;
 
-	if (count < 10) {
+	if (count < 50) {
 		k_work_reschedule(&delayed_work, K_MSEC(50));
 	}
 }
