@@ -509,7 +509,7 @@ int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 	// Hacky decrypt of message to se the content and do whatever you want when you know the
 	// content
 
-	LOG_DBG("src 0x%04x dst 0x%04x Seq 0x%06x len %u headroom %zu tailroom %zu", tx->src, tx->ctx->addr,
+	LOG_DBG("src 0x%04x dst 0x%04x seq 0x%06x len %u headroom %zu tailroom %zu", tx->src, tx->ctx->addr,
 		bt_mesh.seq, buf->len, net_buf_headroom(buf), net_buf_tailroom(buf));
 	LOG_DBG("Payload len %u: %s", buf->len, bt_hex(buf->data, buf->len));
 	// LOG_DBG("Seq 0x%06x", bt_mesh.seq);
@@ -792,7 +792,7 @@ int bt_mesh_net_decode(struct net_buf_simple *in, enum bt_mesh_net_if net_if,
 
 	LOG_DBG("src 0x%04x dst 0x%04x ttl %u", rx->ctx.addr, rx->ctx.recv_dst, rx->ctx.recv_ttl);
 	LOG_DBG("PDU: %s", bt_hex(out->data, out->len));
-	LOG_DBG("src 0x%04x dst 0x%04x Seq 0x%06x\n", rx->ctx.addr, rx->ctx.recv_dst, rx->seq);
+	LOG_DBG("src 0x%04x dst 0x%04x seq 0x%06x\n", rx->ctx.addr, rx->ctx.recv_dst, rx->seq);
 	msg_cache_add(rx);
 
 	return 0;
