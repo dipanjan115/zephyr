@@ -94,8 +94,8 @@ static void common_configure(uint16_t addr)
 {
 	uint8_t status;
 	int err;
-	uint16_t model_ids[] = {TEST_MODEL_ID_1};
-	// uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2};
+	// uint16_t model_ids[] = {TEST_MODEL_ID_1};
+	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2};
 
 	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
 	if (err || status) {
@@ -135,7 +135,7 @@ static void send_message(struct k_work *work)
 		.app_idx = 0,
 		.addr = UNICAST_ADDR2,
 		.send_rel = false,
-		.send_ttl = BT_MESH_TTL_DEFAULT,
+		.send_ttl = 2,
 	};
 
 	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
@@ -143,13 +143,13 @@ static void send_message(struct k_work *work)
 	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
 	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
 
-	// bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
-	// bt_mesh_model_send(&models[3], &ctx, &buf, NULL, NULL);
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
+	bt_mesh_model_send(&models[3], &ctx, &buf, NULL, NULL);
 
 	count++;
 
-	if (count < 10) {
-		k_work_reschedule(&delayed_work, K_MSEC(50));
+	if (count < 50) {
+		k_work_reschedule(&delayed_work, K_MSEC(200));
 	}
 }
 
@@ -162,7 +162,7 @@ static void test_tx_ext_model(void)
 
 	// use k_work instread of the loop 50ms
 	k_work_init_delayable(&delayed_work, send_message);
-	k_work_reschedule(&delayed_work, K_MSEC(50));
+	k_work_reschedule(&delayed_work, K_MSEC(200));
 	PASS();
 }
 
