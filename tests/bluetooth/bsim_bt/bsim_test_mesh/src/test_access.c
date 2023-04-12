@@ -94,8 +94,8 @@ static void common_configure(uint16_t addr)
 {
 	uint8_t status;
 	int err;
-	// uint16_t model_ids[] = {TEST_MODEL_ID_1};
-	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2};
+	uint16_t model_ids[] = {TEST_MODEL_ID_1};
+	// uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2};
 
 	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
 	if (err || status) {
@@ -143,8 +143,8 @@ static void send_message(struct k_work *work)
 	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
 	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
 
-	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
-	bt_mesh_model_send(&models[3], &ctx, &buf, NULL, NULL);
+	// bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
+	// bt_mesh_model_send(&models[3], &ctx, &buf, NULL, NULL);
 
 	count++;
 
