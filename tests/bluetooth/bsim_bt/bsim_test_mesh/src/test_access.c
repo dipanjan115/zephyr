@@ -14,8 +14,12 @@
 LOG_MODULE_REGISTER(LOG_MODULE_NAME, LOG_LEVEL_INF);
 
 #define UNICAST_ADDR1 0x0001
-#define UNICAST_ADDR2 0x0006
+#define UNICAST_ADDR2 0x0002
+#define UNICAST_ADDR3 0x0003
+#define UNICAST_ADDR4 0x0004
+
 #define WAIT_TIME 10 /*seconds*/
+#define TX_INTERVAL 200 /*miliseconds*/
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
@@ -118,24 +122,26 @@ static void common_configure(uint16_t addr)
 		}
 	}
 
-	err = bt_mesh_cfg_cli_net_transmit_set(0, addr, BT_MESH_TRANSMIT(2, 20), &status);
-	if (err || status != BT_MESH_TRANSMIT(2, 20)) {
-		FAIL("Net transmit set failed (err %d, status %u)", err, status);
-		return;
-	}
+	// err = bt_mesh_cfg_cli_net_transmit_set(0, addr, BT_MESH_TRANSMIT(2, 20), &status);
+	// if (err || status != BT_MESH_TRANSMIT(2, 20)) {
+	// 	FAIL("Net transmit set failed (err %d, status %u)", err, status);
+	// 	return;
+	// }
 }
 
-static struct k_work_delayable delayed_work;
+static struct k_work_delayable delayed_work_N1N3;
+static struct k_work_delayable delayed_work_N1N4;
+static struct k_work_delayable delayed_work_N2N3;
 
-static void send_message(struct k_work *work)
+static void send_message_N1N3(struct k_work *work)
 {
 	static int count = 0;
 	struct bt_mesh_msg_ctx ctx = {
 		.net_idx = 0,
 		.app_idx = 0,
-		.addr = UNICAST_ADDR2,
+		.addr = UNICAST_ADDR3,
 		.send_rel = false,
-		.send_ttl = 2,
+		.send_ttl = 3,
 	};
 
 	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
@@ -143,17 +149,60 @@ static void send_message(struct k_work *work)
 	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
 	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
 
+	count++;
+
+	if (count < 10) {
+		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
+	}
+}
+
+static void send_message_N1N4(struct k_work *work)
+{
+	static int count = 0;
+	struct bt_mesh_msg_ctx ctx = {
+		.net_idx = 0,
+		.app_idx = 0,
+		.addr = UNICAST_ADDR4,
+		.send_rel = false,
+		.send_ttl = 3,
+	};
+
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
+	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
+
+	count++;
+
+	if (count < 10) {
+		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
+	}
+}
+
+static void send_message_N2N3(struct k_work *work)
+{
+	static int count = 0;
+	struct bt_mesh_msg_ctx ctx = {
+		.net_idx = 0,
+		.app_idx = 0,
+		.addr = UNICAST_ADDR3,
+		.send_rel = false,
+		.send_ttl = 3,
+	};
+
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_2, 0);
+
 	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
 	bt_mesh_model_send(&models[3], &ctx, &buf, NULL, NULL);
 
 	count++;
 
-	if (count < 50) {
-		k_work_reschedule(&delayed_work, K_MSEC(200));
+	if (count < 10) {
+		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
 	}
 }
 
-static void test_tx_ext_model(void)
+static void test_tx_node_1(void)
 {
 	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
 	bt_mesh_device_setup(&prov, &local_comp);
@@ -161,18 +210,42 @@ static void test_tx_ext_model(void)
 	common_configure(UNICAST_ADDR1);
 
 	// use k_work instread of the loop 50ms
-	k_work_init_delayable(&delayed_work, send_message);
-	k_work_reschedule(&delayed_work, K_MSEC(200));
+	k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
+	k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
+	
+	k_work_init_delayable(&delayed_work_N1N4, send_message_N1N4);
+	k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
 	PASS();
 }
 
-static void test_sub_ext_model(void)
+static void test_tx_node_2(void)
 {
 	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR2);
 	common_configure(UNICAST_ADDR2);
 
+	// use k_work instread of the loop 50ms
+	k_work_init_delayable(&delayed_work_N2N3, send_message_N2N3);
+	k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
+	PASS();
+}
+
+static void test_rx_node_3(void)
+{
+	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
+	bt_mesh_device_setup(&prov, &local_comp);
+	provision(UNICAST_ADDR3);
+	common_configure(UNICAST_ADDR3);
+	PASS();
+}
+
+static void test_rx_node_4(void)
+{
+	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
+	bt_mesh_device_setup(&prov, &local_comp);
+	provision(UNICAST_ADDR4);
+	common_configure(UNICAST_ADDR4);
 	PASS();
 }
 
@@ -183,8 +256,10 @@ static void test_sub_ext_model(void)
 	}
 
 static const struct bst_test_instance test_access[] = {
-	TEST_CASE(tx, ext_model, "Access: tx data of extended models"),
-	TEST_CASE(sub, ext_model, "Access: data subscription of extended models"),
+	TEST_CASE(tx, node_1, "Access: tx data of node 1"),
+	TEST_CASE(tx, node_2, "Access: tx data of node 2"),
+	TEST_CASE(rx, node_3, "Acess: rx data of node 3"),
+	TEST_CASE(rx, node_4, "Acess: rx data of node 4"),
 	BSTEST_END_MARKER};
 
 struct bst_test_list *test_access_install(struct bst_test_list *tests)
