@@ -129,32 +129,32 @@ static void common_configure(uint16_t addr)
 	// }
 }
 
-static struct k_work_delayable delayed_work_N1N3;
+// static struct k_work_delayable delayed_work_N1N3;
 static struct k_work_delayable delayed_work_N1N4;
 static struct k_work_delayable delayed_work_N2N3;
 
-static void send_message_N1N3(struct k_work *work)
-{
-	static int count = 0;
-	struct bt_mesh_msg_ctx ctx = {
-		.net_idx = 0,
-		.app_idx = 0,
-		.addr = UNICAST_ADDR3,
-		.send_rel = false,
-		.send_ttl = 3,
-	};
+// static void send_message_N1N3(struct k_work *work)
+// {
+// 	static int count = 0;
+// 	struct bt_mesh_msg_ctx ctx = {
+// 		.net_idx = 0,
+// 		.app_idx = 0,
+// 		.addr = UNICAST_ADDR3,
+// 		.send_rel = false,
+// 		.send_ttl = 3,
+// 	};
 
-	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
+// 	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
 
-	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
-	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
+// 	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
+// 	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
 
-	count++;
+// 	count++;
 
-	if (count < 10) {
-		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
-	}
-}
+// 	if (count < 10) {
+// 		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
+// 	}
+// }
 
 static void send_message_N1N4(struct k_work *work)
 {
@@ -210,8 +210,8 @@ static void test_tx_node_1(void)
 	common_configure(UNICAST_ADDR1);
 
 	// use k_work instread of the loop 50ms
-	k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
-	k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
+	// k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
+	// k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
 	
 	k_work_init_delayable(&delayed_work_N1N4, send_message_N1N4);
 	k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
