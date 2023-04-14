@@ -19,7 +19,7 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME, LOG_LEVEL_INF);
 #define UNICAST_ADDR4 0x0004
 
 #define WAIT_TIME 10 /*seconds*/
-#define TX_INTERVAL 50 /*miliseconds*/
+#define TX_INTERVAL 200 /*miliseconds*/
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
@@ -258,8 +258,8 @@ static void test_rx_node_4(void)
 static const struct bst_test_instance test_access[] = {
 	TEST_CASE(tx, node_1, "Access: tx data of node 1"),
 	TEST_CASE(tx, node_2, "Access: tx data of node 2"),
-	TEST_CASE(rx, node_3, "Acess: rx data of node 3"),
-	TEST_CASE(rx, node_4, "Acess: rx data of node 4"),
+	TEST_CASE(rx, node_3, "Access: rx data of node 3"),
+	TEST_CASE(rx, node_4, "Access: rx data of node 4"),
 	BSTEST_END_MARKER};
 
 struct bst_test_list *test_access_install(struct bst_test_list *tests)
