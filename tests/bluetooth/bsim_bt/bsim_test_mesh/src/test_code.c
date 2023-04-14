@@ -92,7 +92,7 @@ static void provision(uint16_t addr)
 		FAIL("Provisioning failed (err %d)", err);
 		return;
 	}
-}0
+}
 
 static void common_configure(uint16_t addr)
 {
@@ -209,10 +209,9 @@ static void test_tx_node_1(void)
 	provision(UNICAST_ADDR1);
 	common_configure(UNICAST_ADDR1);
 
-	// use k_work instread of the loop 50ms
 	k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
 	k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
-	
+
 	k_work_init_delayable(&delayed_work_N1N4, send_message_N1N4);
 	k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
 	PASS();
@@ -225,7 +224,6 @@ static void test_tx_node_2(void)
 	provision(UNICAST_ADDR2);
 	common_configure(UNICAST_ADDR2);
 
-	// use k_work instread of the loop 50ms
 	k_work_init_delayable(&delayed_work_N2N3, send_message_N2N3);
 	k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
 	PASS();
@@ -258,8 +256,8 @@ static void test_rx_node_4(void)
 static const struct bst_test_instance test_access[] = {
 	TEST_CASE(tx, node_1, "Access: tx data of node 1"),
 	TEST_CASE(tx, node_2, "Access: tx data of node 2"),
-	TEST_CASE(rx, node_3, "Access: rx data of node 3"),
-	TEST_CASE(rx, node_4, "Access: rx data of node 4"),
+	TEST_CASE(rx, node_3, "Acess: rx data of node 3"),
+	TEST_CASE(rx, node_4, "Acess: rx data of node 4"),
 	BSTEST_END_MARKER};
 
 struct bst_test_list *test_access_install(struct bst_test_list *tests)

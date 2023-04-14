@@ -3,10 +3,13 @@ Starting access_tx_node_2 as device #1
 Starting access_rx_node_3 as device #2
 Starting access_rx_node_4 as device #3
 Starting phy with 4 devices
-d_02: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-74-g7fced54d024b ***
-d_01: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-74-g7fced54d024b ***
-d_00: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-74-g7fced54d024b ***
-d_03: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-74-g7fced54d024b ***
+d_02: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-75-g0a8c4ed8bbd5 ***
+d_03: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-75-g0a8c4ed8bbd5 ***
+d_00: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-75-g0a8c4ed8bbd5 ***
+d_01: @00:00:00.000000  *** Booting Zephyr OS build v3.2.99-ncs2-75-g0a8c4ed8bbd5 ***
+d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
+d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
+d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
 d_02: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
 d_02: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
 d_02: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
@@ -22,16 +25,36 @@ d_02: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_cr
 d_02: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: NetKey cc000000000000000000000000000000[0m
 d_02: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0003 elem_count 1[0m
 d_02: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0003 mod_count 4 vnd_mod_count 0[0m
+d_00: @00:00:00.005768  [00:00:00.005,767] [1;33m<wrn> bt_id: bt_read_static_addr: No static addresses stored in controller[0m
 d_01: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
 d_01: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
 d_01: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
+d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: Identity: C5:AD:ED:38:00:B2 (random)[0m
 d_01: @00:00:00.005768  [00:00:00.005,767] [1;33m<wrn> bt_id: bt_read_static_addr: No static addresses stored in controller[0m
+d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: HCI: version 5.3 (0x0c) revision 0x0000, manufacturer 0x0059[0m
+d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: LMP: version 5.3 (0x0c) subver 0xffff[0m
+d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Bluetooth initialized[0m
+d_03: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
+d_03: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
+d_03: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
+d_03: @00:00:00.005768  [00:00:00.005,767] [1;33m<wrn> bt_id: bt_read_static_addr: No static addresses stored in controller[0m
 d_02: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0003[0m
 d_02: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 20: 00000000aa000000000000000000000000000000[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: Identity: FF:21:3D:E5:B4:CC (random)[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: HCI: version 5.3 (0x0c) revision 0x0000, manufacturer 0x0059[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: LMP: version 5.3 (0x0c) subver 0xffff[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Bluetooth initialized[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Mesh initialized[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_mesh_main: bt_mesh_provision: Primary Element: 0x0002[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_main: bt_mesh_provision: net_idx 0x0000 flags 0x00 iv_index 0x0000[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0003 dst 0x0003 seq 0x000000 len 16 headroom 9 tailroom 4[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: idx 0 flags 0x00 iv_index 0[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 800000012d48eb8c7437aa72da474551[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: NetKey cc000000000000000000000000000000[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0003 dst 0x0003 ctl 0 seq 0x000000[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0003 dst: 0x0003 seq 0x000000 sub 0x81c4de0[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0002 elem_count 1[0m
+d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0002 mod_count 4 vnd_mod_count 0[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0003 dst 0x0003 seq 0x000001 len 16 headroom 9 tailroom 4[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 800000012d48eb8c7437aa72da474551[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0003 dst 0x0003 ctl 0 seq 0x000001[0m
@@ -43,6 +66,17 @@ d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_lo
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0003 dst 0x0003 seq 0x000003 len 7 headroom 9 tailroom 13[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 7: 00000000000003[0m
 d_02: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0003 dst 0x0003 ctl 1 seq 0x000003[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: Identity: C4:C9:B5:FE:AB:8A (random)[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: HCI: version 5.3 (0x0c) revision 0x0000, manufacturer 0x0059[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: LMP: version 5.3 (0x0c) subver 0xffff[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Bluetooth initialized[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Mesh initialized[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_mesh_main: bt_mesh_provision: Primary Element: 0x0004[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_main: bt_mesh_provision: net_idx 0x0000 flags 0x00 iv_index 0x0000[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: idx 0 flags 0x00 iv_index 0[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: NetKey cc000000000000000000000000000000[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0004 elem_count 1[0m
+d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0004 mod_count 4 vnd_mod_count 0[0m
 d_02: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0003 dst 0x0003[0m
 d_02: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 20: 00000000aa000000000000000000000000000000[0m
 d_02: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00000000[0m
@@ -58,40 +92,10 @@ d_02: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_mod
 d_02: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00008003[0m
 d_02: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0003[0m
 d_02: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d030000002a2a[0m
-d_03: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
-d_03: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
-d_03: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: Identity: FF:21:3D:E5:B4:CC (random)[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: HCI: version 5.3 (0x0c) revision 0x0000, manufacturer 0x0059[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: LMP: version 5.3 (0x0c) subver 0xffff[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Bluetooth initialized[0m
-d_03: @00:00:00.005768  [00:00:00.005,767] [1;33m<wrn> bt_id: bt_read_static_addr: No static addresses stored in controller[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Mesh initialized[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_mesh_main: bt_mesh_provision: Primary Element: 0x0002[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_main: bt_mesh_provision: net_idx 0x0000 flags 0x00 iv_index 0x0000[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: idx 0 flags 0x00 iv_index 0[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: NetKey cc000000000000000000000000000000[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0002 elem_count 1[0m
-d_01: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0002 mod_count 4 vnd_mod_count 0[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: Identity: C4:C9:B5:FE:AB:8A (random)[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: HCI: version 5.3 (0x0c) revision 0x0000, manufacturer 0x0059[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: LMP: version 5.3 (0x0c) subver 0xffff[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Bluetooth initialized[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Mesh initialized[0m
-d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Platform: Nordic Semiconductor (0x0002)[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_mesh_main: bt_mesh_provision: Primary Element: 0x0004[0m
 d_02: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0003 dst 0x0003 seq 0x000005 len 13 headroom 9 tailroom 7[0m
-d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: HW Variant: nRF52x (0x0002)[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_main: bt_mesh_provision: net_idx 0x0000 flags 0x00 iv_index 0x0000[0m
 d_02: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 00a1218d95694e875955f55e68[0m
-d_00: @00:00:00.005768  [00:00:00.005,767] [0m<inf> bt_hci_core: hci_vs_init: Firmware: Standard Bluetooth controller (0x00) Version 3.2 Build 99[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: idx 0 flags 0x00 iv_index 0[0m
 d_02: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0003 dst 0x0003 ctl 0 seq 0x000005[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: NetKey cc000000000000000000000000000000[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0004 elem_count 1[0m
-d_03: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0004 mod_count 4 vnd_mod_count 0[0m
 d_02: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0003 dst: 0x0003 seq 0x000005 sub 0x81c4de0[0m
-d_00: @00:00:00.005768  [00:00:00.005,767] [1;33m<wrn> bt_id: bt_read_static_addr: No static addresses stored in controller[0m
 d_02: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0003 dst 0x0003[0m
 d_02: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d030000002a2a[0m
 d_02: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
@@ -100,11 +104,6 @@ d_02: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_acc
 d_02: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0003 dst 0x0003 seq 0x000006 len 14 headroom 9 tailroom 6[0m
 d_02: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 00c889a829a750aaf2bf15734dc3[0m
 d_02: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0003 dst 0x0003 ctl 0 seq 0x000006[0m
-d_02: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0003 dst: 0x0003 seq 0x000006 sub 0x81c4de0[0m
-d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: Identity: C5:AD:ED:38:00:B2 (random)[0m
-d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: HCI: version 5.3 (0x0c) revision 0x0000, manufacturer 0x0059[0m
-d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_hci_core: bt_dev_show_info: LMP: version 5.3 (0x0c) subver 0xffff[0m
-d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Bluetooth initialized[0m
 d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> mesh_test: bt_mesh_device_setup: Mesh initialized[0m
 d_00: @00:00:00.006488  [00:00:00.006,469] [0m<inf> bt_mesh_main: bt_mesh_provision: Primary Element: 0x0001[0m
 d_00: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_main: bt_mesh_provision: net_idx 0x0000 flags 0x00 iv_index 0x0000[0m
@@ -112,108 +111,134 @@ d_00: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_cr
 d_00: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_net: bt_mesh_net_create: NetKey cc000000000000000000000000000000[0m
 d_00: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0001 elem_count 1[0m
 d_00: @00:00:00.006488  [00:00:00.006,469] [0m<dbg> bt_mesh_access: bt_mesh_comp_provision: addr 0x0001 mod_count 4 vnd_mod_count 0[0m
+d_02: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0003 dst: 0x0003 seq 0x000006 sub 0x81c4de0[0m
 d_02: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0003 dst 0x0003[0m
 d_02: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00030000002a2a[0m
 d_02: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
 d_02: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0003[0m
 d_02: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d030000002b2b[0m
-d_01: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0002[0m
-d_01: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 20: 00000000aa000000000000000000000000000000[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000000 len 16 headroom 9 tailroom 4[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000001b599df4ae5a458002ef73821[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000000[0m
 d_02: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0003 dst 0x0003 seq 0x000007 len 13 headroom 9 tailroom 7[0m
 d_02: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 00cdeb5774fbd2ad2922e838d1[0m
 d_02: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0003 dst 0x0003 ctl 0 seq 0x000007[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000000 sub 0x81c4de0[0m
 d_02: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0003 dst: 0x0003 seq 0x000007 sub 0x81c4de0[0m
+d_01: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0002[0m
+d_01: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 20: 00000000aa000000000000000000000000000000[0m
 d_02: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0003 dst 0x0003[0m
 d_02: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d030000002b2b[0m
 d_02: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
 d_02: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0003[0m
 d_02: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00030000002b2b[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000001 len 16 headroom 9 tailroom 4[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000001b599df4ae5a458002ef73821[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000001[0m
 d_02: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0003 dst 0x0003 seq 0x000008 len 14 headroom 9 tailroom 6[0m
 d_02: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 003a10cbfe031602033146b03897[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000001 sub 0x81c4de0[0m
 d_02: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0003 dst 0x0003 ctl 0 seq 0x000008[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000002 len 16 headroom 9 tailroom 4[0m
 d_02: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0003 dst: 0x0003 seq 0x000008 sub 0x81c4de0[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000021aedc30c40ab593405a12188d[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000002[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000002 sub 0x81c4de0[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000003 len 7 headroom 9 tailroom 13[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 7: 00000000000003[0m
-d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 1 seq 0x000003[0m
 d_02: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0003 dst 0x0003[0m
 d_02: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00030000002b2b[0m
 d_02: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
 d_02: @00:00:00.008448 INFO: test_rx_node_3 PASSED
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000000 len 16 headroom 9 tailroom 4[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000001b599df4ae5a458002ef73821[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000000[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000000 sub 0x81c4de0[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000001 len 16 headroom 9 tailroom 4[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000001b599df4ae5a458002ef73821[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000001[0m
+d_03: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0004[0m
+d_03: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 20: 00000000aa000000000000000000000000000000[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000001 sub 0x81c4de0[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000002 len 16 headroom 9 tailroom 4[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000021aedc30c40ab593405a12188d[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000002[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000002 sub 0x81c4de0[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000000 len 16 headroom 9 tailroom 4[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 8000000156bdc0a3575938a1fb384e77[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000003 len 7 headroom 9 tailroom 13[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000000[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 7: 00000000000003[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000000 sub 0x81c4de0[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000001 len 16 headroom 9 tailroom 4[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 8000000156bdc0a3575938a1fb384e77[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000001[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000001 sub 0x81c4de0[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000002 len 16 headroom 9 tailroom 4[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000021eb72636b63c7f7423dcf83ac[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000002[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000002 sub 0x81c4de0[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000003 len 7 headroom 9 tailroom 13[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 7: 00000000000003[0m
+d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 1 seq 0x000003[0m
+d_01: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 1 seq 0x000003[0m
+d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
+d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 20: 00000000aa000000000000000000000000000000[0m
+d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00000000[0m
+d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0004[0m
+d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 6: 800300000000[0m
+d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000004 len 11 headroom 9 tailroom 9[0m
+d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 11: 003dfc8aef9a41846b5845[0m
+d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000004[0m
+d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000003 sub 0x81c4de0[0m
+d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000004 sub 0x81c4de0[0m
+d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
+d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 6: 800300000000[0m
+d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00008003[0m
 d_01: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
 d_01: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 20: 00000000aa000000000000000000000000000000[0m
 d_01: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00000000[0m
 d_01: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0002[0m
 d_01: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 6: 800300000000[0m
+d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0004[0m
+d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d040000002a2a[0m
+d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000005 len 13 headroom 9 tailroom 7[0m
+d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 004538f002f9805e9f116eecea[0m
+d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000005[0m
+d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000005 sub 0x81c4de0[0m
 d_01: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000004 len 11 headroom 9 tailroom 9[0m
+d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
+d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d040000002a2a[0m
+d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
+d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0004[0m
+d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00040000002a2a[0m
 d_01: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 11: 0034d6c3a6d470ff49269e[0m
 d_01: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000004[0m
 d_01: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000003 sub 0x81c4de0[0m
 d_01: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000004 sub 0x81c4de0[0m
+d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000006 len 14 headroom 9 tailroom 6[0m
+d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 0062dc98ed2a0212991d28b3a97c[0m
+d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000006[0m
+d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000006 sub 0x81c4de0[0m
 d_01: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
+d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
+d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00040000002a2a[0m
+d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
 d_01: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 6: 800300000000[0m
 d_01: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00008003[0m
 d_01: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0002[0m
+d_00: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0001[0m
 d_01: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d020000002a2a[0m
+d_00: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 20: 00000000aa000000000000000000000000000000[0m
+d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000000 len 16 headroom 9 tailroom 4[0m
+d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000001d86a5743f1ddbcc5f1c85333[0m
 d_01: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000005 len 13 headroom 9 tailroom 7[0m
+d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000000[0m
 d_01: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 00b09e2b3b6ad857468070e9b4[0m
 d_01: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000005[0m
 d_01: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000005 sub 0x81c4de0[0m
+d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0004[0m
+d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d040000002b2b[0m
+d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000007 len 13 headroom 9 tailroom 7[0m
+d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 00a9778b9c3ef69738e0596db3[0m
+d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000007[0m
+d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000007 sub 0x81c4de0[0m
 d_01: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
 d_01: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d020000002a2a[0m
 d_01: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
 d_01: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0002[0m
 d_01: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00020000002a2a[0m
-d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000006 len 14 headroom 9 tailroom 6[0m
-d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 00b3e2fcb8e3c11e6767e3be40f0[0m
-d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000006[0m
-d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000006 sub 0x81c4de0[0m
-d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
-d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00020000002a2a[0m
-d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
-d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0002[0m
-d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d020000002b2b[0m
-d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000007 len 13 headroom 9 tailroom 7[0m
-d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 003551fd693bb7a6cbf0798e0d[0m
-d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000007[0m
-d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000007 sub 0x81c4de0[0m
-d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
-d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d020000002b2b[0m
-d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
-d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0002[0m
-d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00020000002b2b[0m
-d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000008 len 14 headroom 9 tailroom 6[0m
-d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 00fd50d18afd77beb5f1b4222948[0m
-d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000008[0m
-d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000008 sub 0x81c4de0[0m
-d_01: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
-d_01: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00020000002b2b[0m
-d_01: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
-d_01: @00:00:00.008448 INFO: test_tx_node_2 PASSED
-d_00: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0001[0m
-d_00: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 20: 00000000aa000000000000000000000000000000[0m
-d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000000 len 16 headroom 9 tailroom 4[0m
-d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000001d86a5743f1ddbcc5f1c85333[0m
-d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000000[0m
-d_03: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0004[0m
-d_03: @00:00:00.007928  [00:00:00.007,904] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 20: 00000000aa000000000000000000000000000000[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0001 dst: 0x0001 seq 0x000000 sub 0x81c4de0[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000000 len 16 headroom 9 tailroom 4[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 8000000156bdc0a3575938a1fb384e77[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000000[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000000 sub 0x81c4de0[0m
+d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000001 len 16 headroom 9 tailroom 4[0m
+d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d040000002b2b[0m
+d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000001d86a5743f1ddbcc5f1c85333[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000001[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0001 dst: 0x0001 seq 0x000001 sub 0x81c4de0[0m
@@ -221,64 +246,65 @@ d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_se
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 8000002156ffd39f5fbcbbbca84e5e81[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000002[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0001 dst: 0x0001 seq 0x000002 sub 0x81c4de0[0m
+d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000006 len 14 headroom 9 tailroom 6[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000003 len 7 headroom 9 tailroom 13[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 7: 00000000000003[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000001 len 16 headroom 9 tailroom 4[0m
 d_00: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 1 seq 0x000003[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 8000000156bdc0a3575938a1fb384e77[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000001[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000001 sub 0x81c4de0[0m
+d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 00b3e2fcb8e3c11e6767e3be40f0[0m
+d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000006[0m
+d_01: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000006 sub 0x81c4de0[0m
 d_00: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0001 dst 0x0001[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000002 len 16 headroom 9 tailroom 4[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 16: 80000021eb72636b63c7f7423dcf83ac[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000002[0m
 d_00: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 20: 00000000aa000000000000000000000000000000[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000002 sub 0x81c4de0[0m
+d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
 d_00: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00000000[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000003 len 7 headroom 9 tailroom 13[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 7: 00000000000003[0m
-d_03: @00:00:00.007988  [00:00:00.007,965] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 1 seq 0x000003[0m
+d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00020000002a2a[0m
+d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
 d_00: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0001[0m
 d_00: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 6: 800300000000[0m
+d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0002[0m
+d_01: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d020000002b2b[0m
 d_00: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000004 len 11 headroom 9 tailroom 9[0m
 d_00: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 11: 0099f720550b5709fb1796[0m
 d_00: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000004[0m
 d_00: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0001 dst: 0x0001 seq 0x000003 sub 0x81c4de0[0m
 d_00: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0001 dst: 0x0001 seq 0x000004 sub 0x81c4de0[0m
+d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000007 len 13 headroom 9 tailroom 7[0m
+d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 003551fd693bb7a6cbf0798e0d[0m
+d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000007[0m
 d_00: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0001 dst 0x0001[0m
-d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
-d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 20: 00000000aa000000000000000000000000000000[0m
 d_00: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 6: 800300000000[0m
 d_00: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00008003[0m
-d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00000000[0m
+d_01: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000007 sub 0x81c4de0[0m
+d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0004[0m
+d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00040000002b2b[0m
 d_00: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0001[0m
 d_00: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d010000002a2a[0m
-d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0004[0m
-d_03: @00:00:00.008048  [00:00:00.008,026] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 6: 800300000000[0m
+d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000008 len 14 headroom 9 tailroom 6[0m
+d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 0056abbe9b13563d219731659384[0m
+d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000008[0m
+d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000008 sub 0x81c4de0[0m
+d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
+d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d020000002b2b[0m
+d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
+d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0002[0m
+d_01: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00020000002b2b[0m
+d_03: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
+d_03: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00040000002b2b[0m
+d_03: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
+d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0002 dst 0x0002 seq 0x000008 len 14 headroom 9 tailroom 6[0m
+d_03: @00:00:00.008448 INFO: test_rx_node_4 PASSED
+d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 00fd50d18afd77beb5f1b4222948[0m
+d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0002 dst 0x0002 ctl 0 seq 0x000008[0m
+d_01: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0002 dst: 0x0002 seq 0x000008 sub 0x81c4de0[0m
 d_00: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000005 len 13 headroom 9 tailroom 7[0m
 d_00: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 0008774df43b741b5b6f491886[0m
 d_00: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000005[0m
-d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000004 len 11 headroom 9 tailroom 9[0m
-d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 11: 003dfc8aef9a41846b5845[0m
-d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000004[0m
-d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000003 sub 0x81c4de0[0m
-d_03: @00:00:00.008088  [00:00:00.008,087] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000004 sub 0x81c4de0[0m
 d_00: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0001 dst: 0x0001 seq 0x000005 sub 0x81c4de0[0m
-d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
-d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 6: 800300000000[0m
-d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x00008003[0m
-d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0004[0m
-d_03: @00:00:00.008128  [00:00:00.008,117] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d040000002a2a[0m
-d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000005 len 13 headroom 9 tailroom 7[0m
-d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 004538f002f9805e9f116eecea[0m
-d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000005[0m
-d_03: @00:00:00.008168  [00:00:00.008,148] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000005 sub 0x81c4de0[0m
-d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
-d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d040000002a2a[0m
-d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
-d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0004[0m
-d_03: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00040000002a2a[0m
+d_01: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0002 dst 0x0002[0m
+d_01: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00020000002b2b[0m
+d_01: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
 d_00: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0001 dst 0x0001[0m
+d_01: @00:00:00.008448 INFO: test_tx_node_2 PASSED
 d_00: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d010000002a2a[0m
 d_00: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
 d_00: @00:00:00.008208  [00:00:00.008,178] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0001[0m
@@ -292,33 +318,15 @@ d_00: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_mod
 d_00: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
 d_00: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0001[0m
 d_00: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d010000002b2b[0m
-d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000006 len 14 headroom 9 tailroom 6[0m
-d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 0062dc98ed2a0212991d28b3a97c[0m
-d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000006[0m
-d_03: @00:00:00.008248  [00:00:00.008,239] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000006 sub 0x81c4de0[0m
-d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
-d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00040000002a2a[0m
-d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
 d_00: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000007 len 13 headroom 9 tailroom 7[0m
 d_00: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 00a7ef82810547ba52f6b1690a[0m
 d_00: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000007[0m
 d_00: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0001 dst: 0x0001 seq 0x000007 sub 0x81c4de0[0m
-d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffd dst 0x0004[0m
-d_03: @00:00:00.008288  [00:00:00.008,270] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 8: 803d040000002b2b[0m
-d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000007 len 13 headroom 9 tailroom 7[0m
-d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 13: 00a9778b9c3ef69738e0596db3[0m
-d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000007[0m
-d_03: @00:00:00.008328  [00:00:00.008,300] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000007 sub 0x81c4de0[0m
-d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
 d_00: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0001 dst 0x0001[0m
 d_00: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d010000002b2b[0m
 d_00: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
 d_00: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0001[0m
 d_00: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00010000002b2b[0m
-d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 8: 803d040000002b2b[0m
-d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803d[0m
-d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0xfffe dst 0x0004[0m
-d_03: @00:00:00.008368  [00:00:00.008,361] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 9: 803e00040000002b2b[0m
 d_00: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0001 dst 0x0001 seq 0x000008 len 14 headroom 9 tailroom 6[0m
 d_00: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 0034fb3c22f724326a97bf037a8d[0m
 d_00: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0001 dst 0x0001 ctl 0 seq 0x000008[0m
@@ -326,14 +334,6 @@ d_00: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_lo
 d_00: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0001 dst 0x0001[0m
 d_00: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00010000002b2b[0m
 d_00: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
-d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: src 0x0004 dst 0x0004 seq 0x000008 len 14 headroom 9 tailroom 6[0m
-d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_send: Payload len 14: 0056abbe9b13563d219731659384[0m
-d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: net_header_encode: src 0x0004 dst 0x0004 ctl 0 seq 0x000008[0m
-d_03: @00:00:00.008408  [00:00:00.008,392] [0m<dbg> bt_mesh_net: bt_mesh_net_local: src: 0x0004 dst: 0x0004 seq 0x000008 sub 0x81c4de0[0m
-d_03: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: app_idx 0xfffe src 0x0004 dst 0x0004[0m
-d_03: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: len 9: 803e00040000002b2b[0m
-d_03: @00:00:00.008448  [00:00:00.008,422] [0m<dbg> bt_mesh_access: bt_mesh_model_recv: OpCode 0x0000803e[0m
-d_03: @00:00:00.008448 INFO: test_rx_node_4 PASSED
 d_00: @00:00:00.008448 INFO: test_tx_node_1 PASSED
 d_00: @00:00:00.208466  [00:00:00.208,465] [0m<dbg> bt_mesh_access: bt_mesh_access_send: net_idx 0x0000 app_idx 0x0000 dst 0x0004[0m
 d_00: @00:00:00.208466  [00:00:00.208,465] [0m<dbg> bt_mesh_access: bt_mesh_access_send: len 1: 11[0m
