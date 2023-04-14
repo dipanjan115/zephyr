@@ -23,6 +23,7 @@ extern struct bst_test_list *test_beacon_install(struct bst_test_list *tests);
 extern struct bst_test_list *test_scanner_install(struct bst_test_list *test);
 extern struct bst_test_list *test_heartbeat_install(struct bst_test_list *test);
 extern struct bst_test_list *test_access_install(struct bst_test_list *test);
+extern struct bst_test_list *test_code_install(struct bst_test_list *test);
 extern struct bst_test_list *test_ivi_install(struct bst_test_list *test);
 extern struct bst_test_list *test_adv_install(struct bst_test_list *test);
 #endif
@@ -46,6 +47,7 @@ bst_test_install_t test_installers[] = {
 	test_access_install,
 	test_ivi_install,
 	test_adv_install,
+	test_code_install,
 #endif
 	NULL
 };

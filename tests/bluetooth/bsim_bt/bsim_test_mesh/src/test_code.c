@@ -8,10 +8,10 @@
 #include "mesh/access.h"
 #include "mesh/foundation.h"
 
-#define LOG_MODULE_NAME test_access
+#define LOG_MODULE_NAME test_code
 
 #include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(LOG_MODULE_NAME, LOG_LEVEL_INF);
+LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 
 #define UNICAST_ADDR1 0x0001
 #define UNICAST_ADDR2 0x0002
@@ -78,7 +78,7 @@ static struct bt_mesh_elem elems[] = {
 	BT_MESH_ELEM(0, models, vnd_models),
 };
 
-const struct bt_mesh_comp local_comp = {
+static const struct bt_mesh_comp local_comp = {
 	.elem = elems,
 	.elem_count = ARRAY_SIZE(elems),
 };
@@ -92,7 +92,7 @@ static void provision(uint16_t addr)
 		FAIL("Provisioning failed (err %d)", err);
 		return;
 	}
-}0
+}
 
 static void common_configure(uint16_t addr)
 {
@@ -151,7 +151,7 @@ static void send_message_N1N3(struct k_work *work)
 
 	count++;
 
-	if (count < 10) {
+	if (count < 2) {
 		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
 	}
 }
@@ -174,7 +174,7 @@ static void send_message_N1N4(struct k_work *work)
 
 	count++;
 
-	if (count < 10) {
+	if (count < 2) {
 		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
 	}
 }
@@ -197,7 +197,7 @@ static void send_message_N2N3(struct k_work *work)
 
 	count++;
 
-	if (count < 10) {
+	if (count < 2) {
 		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
 	}
 }
@@ -208,6 +208,7 @@ static void test_tx_node_1(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR1);
 	common_configure(UNICAST_ADDR1);
+	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	// use k_work instread of the loop 50ms
 	k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
@@ -224,6 +225,7 @@ static void test_tx_node_2(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR2);
 	common_configure(UNICAST_ADDR2);
+	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	// use k_work instread of the loop 50ms
 	k_work_init_delayable(&delayed_work_N2N3, send_message_N2N3);
@@ -237,6 +239,8 @@ static void test_rx_node_3(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR3);
 	common_configure(UNICAST_ADDR3);
+	LOG_INF(" ---- ## CONFIG DONE ## ");
+
 	PASS();
 }
 
@@ -246,24 +250,27 @@ static void test_rx_node_4(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR4);
 	common_configure(UNICAST_ADDR4);
+	LOG_INF(" ---- ## CONFIG DONE ## ");
+
+
 	PASS();
 }
 
 #define TEST_CASE(role, name, description)                                                         \
 	{                                                                                          \
-		.test_id = "access_" #role "_" #name, .test_descr = description,                   \
+		.test_id = "code_" #role "_" #name, .test_descr = description,                   \
 		.test_tick_f = bt_mesh_test_timeout, .test_main_f = test_##role##_##name,          \
 	}
 
-static const struct bst_test_instance test_access[] = {
+static const struct bst_test_instance test_code[] = {
 	TEST_CASE(tx, node_1, "Access: tx data of node 1"),
 	TEST_CASE(tx, node_2, "Access: tx data of node 2"),
 	TEST_CASE(rx, node_3, "Access: rx data of node 3"),
 	TEST_CASE(rx, node_4, "Access: rx data of node 4"),
 	BSTEST_END_MARKER};
 
-struct bst_test_list *test_access_install(struct bst_test_list *tests)
+struct bst_test_list *test_code_install(struct bst_test_list *tests)
 {
-	tests = bst_add_tests(tests, test_access);
+	tests = bst_add_tests(tests, test_code);
 	return tests;
 };

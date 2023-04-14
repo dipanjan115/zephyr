@@ -1,0 +1,1 @@
+Execute ./bs_2G4_phy_v1 -v=${verbosity_level} -s=$s_id -D=$count -dump -channel=multiatt -argschannel -file=att.txt
