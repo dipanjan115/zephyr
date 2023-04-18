@@ -262,6 +262,7 @@ static const struct bst_test_instance test_access[] = {
 	TEST_CASE(rx, node_4, "Acess: rx data of node 4"),
 	BSTEST_END_MARKER};
 
+
 struct bst_test_list *test_access_install(struct bst_test_list *tests)
 {
 	tests = bst_add_tests(tests, test_access);
