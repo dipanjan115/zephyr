@@ -18,7 +18,7 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define UNICAST_ADDR3 0x0003
 #define UNICAST_ADDR4 0x0004
 
-#define WAIT_TIME 10 /*seconds*/
+#define WAIT_TIME   10	/*seconds*/
 #define TX_INTERVAL 200 /*miliseconds*/
 
 #define TEST_MODEL_ID_1 0x2a2a
@@ -250,13 +250,19 @@ static void test_rx_node_4(void)
 	common_configure(UNICAST_ADDR4);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
-
 	PASS();
 }
 
+/*Make a test case to tweak with the buffer*/
+
+// static void test_queue_node(void)
+// {
+
+// }
+
 #define TEST_CASE(role, name, description)                                                         \
 	{                                                                                          \
-		.test_id = "code_" #role "_" #name, .test_descr = description,                   \
+		.test_id = "code_" #role "_" #name, .test_descr = description,                     \
 		.test_tick_f = bt_mesh_test_timeout, .test_main_f = test_##role##_##name,          \
 	}
 
@@ -264,8 +270,7 @@ static const struct bst_test_instance test_code[] = {
 	TEST_CASE(tx, node_1, "Access: tx data of node 1"),
 	TEST_CASE(tx, node_2, "Access: tx data of node 2"),
 	TEST_CASE(rx, node_3, "Acess: rx data of node 3"),
-	TEST_CASE(rx, node_4, "Acess: rx data of node 4"),
-	BSTEST_END_MARKER};
+	TEST_CASE(rx, node_4, "Acess: rx data of node 4"), BSTEST_END_MARKER};
 
 struct bst_test_list *test_code_install(struct bst_test_list *tests)
 {
