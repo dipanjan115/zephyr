@@ -151,7 +151,7 @@ static void send_message_N1N3(struct k_work *work)
 
 	count++;
 
-	if (count < 2) {
+	if (count < 20) {
 		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
 	}
 }
@@ -174,7 +174,7 @@ static void send_message_N1N4(struct k_work *work)
 
 	count++;
 
-	if (count < 2) {
+	if (count < 20) {
 		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
 	}
 }
@@ -197,7 +197,7 @@ static void send_message_N2N3(struct k_work *work)
 
 	count++;
 
-	if (count < 2) {
+	if (count < 20) {
 		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
 	}
 }
