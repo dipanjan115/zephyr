@@ -30,18 +30,19 @@ enum bt_mesh_adv_tag {
 	BT_MESH_RELAY_ADV = BIT(1),
 	BT_MESH_PROXY_ADV = BIT(2),
 	BT_MESH_FRIEND_ADV = BIT(3),
+	BT_MESH_ADDR_PRIORITY_ADV = BIT(4), // Adds the tag for src-dst based prioritization
 };
 
 struct bt_mesh_adv {
 	const struct bt_mesh_send_cb *cb;
 	void *cb_data;
 
-	uint8_t      type:2,
-		  started:1,
-		  busy:1,
-		  tag:4;
+	uint16_t	type:2,
+		  	started:1,
+		  	busy:1,
+		  	tag:5; // Accomodates the new tag
 
-	uint8_t      xmit;
+	uint8_t		xmit;
 };
 
 /* Lookup table for Advertising data types for bt_mesh_adv_type: */

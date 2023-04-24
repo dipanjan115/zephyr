@@ -31,14 +31,14 @@
 LOG_MODULE_REGISTER(bt_mesh_adv);
 
 /* Window and Interval are equal for continuous scanning */
-#define MESH_SCAN_INTERVAL    BT_MESH_ADV_SCAN_UNIT(BT_MESH_SCAN_INTERVAL_MS)
-#define MESH_SCAN_WINDOW      BT_MESH_ADV_SCAN_UNIT(BT_MESH_SCAN_WINDOW_MS)
+#define MESH_SCAN_INTERVAL BT_MESH_ADV_SCAN_UNIT(BT_MESH_SCAN_INTERVAL_MS)
+#define MESH_SCAN_WINDOW   BT_MESH_ADV_SCAN_UNIT(BT_MESH_SCAN_WINDOW_MS)
 
 const uint8_t bt_mesh_adv_type[BT_MESH_ADV_TYPES] = {
-	[BT_MESH_ADV_PROV]   = BT_DATA_MESH_PROV,
-	[BT_MESH_ADV_DATA]   = BT_DATA_MESH_MESSAGE,
+	[BT_MESH_ADV_PROV] = BT_DATA_MESH_PROV,
+	[BT_MESH_ADV_DATA] = BT_DATA_MESH_MESSAGE,
 	[BT_MESH_ADV_BEACON] = BT_DATA_MESH_BEACON,
-	[BT_MESH_ADV_URI]    = BT_DATA_URI,
+	[BT_MESH_ADV_URI] = BT_DATA_URI,
 };
 
 static K_FIFO_DEFINE(bt_mesh_adv_queue);
@@ -54,24 +54,21 @@ static void adv_buf_destroy(struct net_buf *buf)
 	bt_mesh_adv_send_end(0, &adv);
 }
 
-NET_BUF_POOL_DEFINE(adv_buf_pool, CONFIG_BT_MESH_ADV_BUF_COUNT,
-		    BT_MESH_ADV_DATA_SIZE, BT_MESH_ADV_USER_DATA_SIZE,
-		    adv_buf_destroy);
+NET_BUF_POOL_DEFINE(adv_buf_pool, CONFIG_BT_MESH_ADV_BUF_COUNT, BT_MESH_ADV_DATA_SIZE,
+		    BT_MESH_ADV_USER_DATA_SIZE, adv_buf_destroy);
 
 static struct bt_mesh_adv adv_local_pool[CONFIG_BT_MESH_ADV_BUF_COUNT];
 
 #if defined(CONFIG_BT_MESH_RELAY)
-NET_BUF_POOL_DEFINE(relay_buf_pool, CONFIG_BT_MESH_RELAY_BUF_COUNT,
-		    BT_MESH_ADV_DATA_SIZE, BT_MESH_ADV_USER_DATA_SIZE,
-		    adv_buf_destroy);
+NET_BUF_POOL_DEFINE(relay_buf_pool, CONFIG_BT_MESH_RELAY_BUF_COUNT, BT_MESH_ADV_DATA_SIZE,
+		    BT_MESH_ADV_USER_DATA_SIZE, adv_buf_destroy);
 
 static struct bt_mesh_adv adv_relay_pool[CONFIG_BT_MESH_RELAY_BUF_COUNT];
 #endif
 
 #if defined(CONFIG_BT_MESH_ADV_EXT_FRIEND_SEPARATE)
-NET_BUF_POOL_DEFINE(friend_buf_pool, CONFIG_BT_MESH_FRIEND_LPN_COUNT,
-		    BT_MESH_ADV_DATA_SIZE, BT_MESH_ADV_USER_DATA_SIZE,
-		    adv_buf_destroy);
+NET_BUF_POOL_DEFINE(friend_buf_pool, CONFIG_BT_MESH_FRIEND_LPN_COUNT, BT_MESH_ADV_DATA_SIZE,
+		    BT_MESH_ADV_USER_DATA_SIZE, adv_buf_destroy);
 
 static struct bt_mesh_adv adv_friend_pool[CONFIG_BT_MESH_FRIEND_LPN_COUNT];
 #endif
@@ -79,8 +76,8 @@ static struct bt_mesh_adv adv_friend_pool[CONFIG_BT_MESH_FRIEND_LPN_COUNT];
 static struct net_buf *bt_mesh_adv_create_from_pool(struct net_buf_pool *buf_pool,
 						    struct bt_mesh_adv *adv_pool,
 						    enum bt_mesh_adv_type type,
-						    enum bt_mesh_adv_tag tag,
-						    uint8_t xmit, k_timeout_t timeout)
+						    enum bt_mesh_adv_tag tag, uint8_t xmit,
+						    k_timeout_t timeout)
 {
 	struct bt_mesh_adv *adv;
 	struct net_buf *buf;
@@ -100,35 +97,32 @@ static struct net_buf *bt_mesh_adv_create_from_pool(struct net_buf_pool *buf_poo
 
 	(void)memset(adv, 0, sizeof(*adv));
 
-	adv->type         = type;
-	adv->tag          = tag;
-	adv->xmit         = xmit;
+	adv->type = type;
+	adv->tag = tag;
+	adv->xmit = xmit;
 
 	return buf;
 }
 
-struct net_buf *bt_mesh_adv_create(enum bt_mesh_adv_type type,
-				   enum bt_mesh_adv_tag tag,
+struct net_buf *bt_mesh_adv_create(enum bt_mesh_adv_type type, enum bt_mesh_adv_tag tag,
 				   uint8_t xmit, k_timeout_t timeout)
 {
 #if defined(CONFIG_BT_MESH_RELAY)
 	if (tag & BT_MESH_RELAY_ADV) {
-		return bt_mesh_adv_create_from_pool(&relay_buf_pool,
-						    adv_relay_pool, type,
-						    tag, xmit, timeout);
+		return bt_mesh_adv_create_from_pool(&relay_buf_pool, adv_relay_pool, type, tag,
+						    xmit, timeout);
 	}
 #endif
 
 #if defined(CONFIG_BT_MESH_ADV_EXT_FRIEND_SEPARATE)
 	if (tag & BT_MESH_FRIEND_ADV) {
-		return bt_mesh_adv_create_from_pool(&friend_buf_pool,
-						    adv_friend_pool, type,
-						    tag, xmit, timeout);
+		return bt_mesh_adv_create_from_pool(&friend_buf_pool, adv_friend_pool, type, tag,
+						    xmit, timeout);
 	}
 #endif
 
-	return bt_mesh_adv_create_from_pool(&adv_buf_pool, adv_local_pool, type,
-					    tag, xmit, timeout);
+	return bt_mesh_adv_create_from_pool(&adv_buf_pool, adv_local_pool, type, tag, xmit,
+					    timeout);
 }
 
 #if CONFIG_BT_MESH_RELAY_ADV_SETS || CONFIG_BT_MESH_ADV_EXT_FRIEND_SEPARATE
@@ -157,14 +151,10 @@ struct net_buf *bt_mesh_adv_buf_get(k_timeout_t timeout)
 	int err;
 	struct k_poll_event events[] = {
 		K_POLL_EVENT_STATIC_INITIALIZER(K_POLL_TYPE_FIFO_DATA_AVAILABLE,
-						K_POLL_MODE_NOTIFY_ONLY,
-						&bt_mesh_adv_queue,
-						0),
+						K_POLL_MODE_NOTIFY_ONLY, &bt_mesh_adv_queue, 0),
 #if defined(CONFIG_BT_MESH_ADV_EXT_RELAY_USING_MAIN_ADV_SET)
 		K_POLL_EVENT_STATIC_INITIALIZER(K_POLL_TYPE_FIFO_DATA_AVAILABLE,
-						K_POLL_MODE_NOTIFY_ONLY,
-						&bt_mesh_relay_queue,
-						0),
+						K_POLL_MODE_NOTIFY_ONLY, &bt_mesh_relay_queue, 0),
 #endif /* CONFIG_BT_MESH_ADV_EXT_RELAY_USING_MAIN_ADV_SET */
 	};
 
@@ -190,7 +180,7 @@ struct net_buf *bt_mesh_adv_buf_get_by_tag(uint8_t tag, k_timeout_t timeout)
 
 	return bt_mesh_adv_buf_get(timeout);
 }
-#else /* !(CONFIG_BT_MESH_RELAY_ADV_SETS || CONFIG_BT_MESH_ADV_EXT_FRIEND_SEPARATE) */
+#else  /* !(CONFIG_BT_MESH_RELAY_ADV_SETS || CONFIG_BT_MESH_ADV_EXT_FRIEND_SEPARATE) */
 struct net_buf *bt_mesh_adv_buf_get(k_timeout_t timeout)
 {
 	return net_buf_get(&bt_mesh_adv_queue, timeout);
@@ -219,8 +209,7 @@ void bt_mesh_adv_buf_get_cancel(void)
 	}
 }
 
-void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb,
-		      void *cb_data)
+void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, void *cb_data)
 {
 	LOG_DBG("type 0x%02x len %u: %s", BT_MESH_ADV(buf)->type, buf->len,
 		bt_hex(buf->data, buf->len));
@@ -244,7 +233,14 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb,
 	}
 #endif
 
-	net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
+	/* Check if the buffer has a priority tag */
+	if (BT_MESH_ADV(buf)->tag == BT_MESH_ADDR_PRIORITY_ADV) {
+		/* Enqueue the buffer at the front of the queue */
+		sys_slist_prepend(&bt_mesh_adv_queue, &buf->node);
+	} else {
+		net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
+	}
+
 	bt_mesh_adv_buf_local_ready();
 }
 
@@ -263,8 +259,8 @@ int bt_mesh_adv_gatt_send(void)
 	return -ENOTSUP;
 }
 
-static void bt_mesh_scan_cb(const bt_addr_le_t *addr, int8_t rssi,
-			    uint8_t adv_type, struct net_buf_simple *buf)
+static void bt_mesh_scan_cb(const bt_addr_le_t *addr, int8_t rssi, uint8_t adv_type,
+			    struct net_buf_simple *buf)
 {
 	if (adv_type != BT_GAP_ADV_TYPE_ADV_NONCONN_IND) {
 		return;
@@ -316,11 +312,10 @@ static void bt_mesh_scan_cb(const bt_addr_le_t *addr, int8_t rssi,
 
 int bt_mesh_scan_enable(void)
 {
-	struct bt_le_scan_param scan_param = {
-			.type       = BT_HCI_LE_SCAN_PASSIVE,
-			.options    = BT_LE_SCAN_OPT_NONE,
-			.interval   = MESH_SCAN_INTERVAL,
-			.window     = MESH_SCAN_WINDOW };
+	struct bt_le_scan_param scan_param = {.type = BT_HCI_LE_SCAN_PASSIVE,
+					      .options = BT_LE_SCAN_OPT_NONE,
+					      .interval = MESH_SCAN_INTERVAL,
+					      .window = MESH_SCAN_WINDOW};
 	int err;
 
 	LOG_DBG("");
