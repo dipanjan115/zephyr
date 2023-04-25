@@ -58,7 +58,7 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb,
 
 struct net_buf *bt_mesh_adv_buf_get(k_timeout_t timeout);
 
-struct net_buf *bt_mesh_adv_buf_get_by_tag(uint8_t tag, k_timeout_t timeout);
+struct net_buf *bt_mesh_adv_buf_get_by_tag(uint16_t tag, k_timeout_t timeout);
 
 void bt_mesh_adv_gatt_update(void);
 
