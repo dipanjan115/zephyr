@@ -202,6 +202,49 @@ static void send_message_N2N3(struct k_work *work)
 	}
 }
 
+static void test_fifo(void)
+{
+	struct k_fifo test_queue;
+	k_fifo_init(&test_queue);
+	struct test_item {
+		sys_snode_t node;
+		int value;
+	};
+
+	struct test_item items[] = {{.value = 3}, {.value = 4}, {.value = 5},
+				    {.value = 6}, {.value = 7}, {.value = 8}};
+	for (size_t i = 0; i < ARRAY_SIZE(items); i++) {
+		k_fifo_put(&test_queue, &items[i]);
+	}
+
+	struct test_item *item;
+	struct k_fifo temp_queue;
+
+	k_fifo_init(&temp_queue);
+	printk("test_queue contents:\n");
+
+	while ((item = k_fifo_get(&test_queue, K_NO_WAIT)) != NULL) {
+		printk("%d\n", item->value);
+		k_fifo_put(&temp_queue, item);
+	}
+
+	struct test_item priority_val[] = {{.value = 0}};
+	for (size_t i = 0; i < ARRAY_SIZE(priority_val); i++) {
+		k_fifo_put(&test_queue, &priority_val[i]);
+	}
+
+	// Re-enqueue items back to the test_queue from the temporary queue
+	while ((item = k_fifo_get(&temp_queue, K_NO_WAIT)) != NULL) {
+		k_fifo_put(&test_queue, item);
+	}
+
+	printk("test_queue contents with priority element added at the start:\n");
+
+	while ((item = k_fifo_get(&test_queue, K_NO_WAIT)) != NULL) {
+		printk("%d\n", item->value);
+	}
+}
+
 static void test_tx_node_1(void)
 {
 	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
@@ -248,17 +291,13 @@ static void test_rx_node_4(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR4);
 	common_configure(UNICAST_ADDR4);
+	test_fifo();
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
 }
 
 /*Make a test case to tweak with the buffer*/
-
-// static void test_queue_node(void)
-// {
-
-// }
 
 #define TEST_CASE(role, name, description)                                                         \
 	{                                                                                          \
