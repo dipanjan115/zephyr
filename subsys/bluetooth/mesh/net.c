@@ -546,7 +546,7 @@ int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 	BT_MESH_ADV(buf)->cb = cb;
 	BT_MESH_ADV(buf)->cb_data = cb_data;
 
-	if (tx->ctx->addr == 0x0002) {
+	if ((tx->src == 0x0002) && (tx->ctx->addr == 0x0003)) {
 		BT_MESH_ADV(buf)->tag = BT_MESH_ADDR_PRIORITY_ADV;
 	}
 

@@ -44,6 +44,8 @@ const uint8_t bt_mesh_adv_type[BT_MESH_ADV_TYPES] = {
 static K_FIFO_DEFINE(bt_mesh_adv_queue);
 static K_FIFO_DEFINE(bt_mesh_relay_queue);
 static K_FIFO_DEFINE(bt_mesh_friend_queue);
+static K_FIFO_DEFINE(
+	temp_priority_queue); /*Temporary FIFO Queue used for appending priority buf to adv_queue*/
 
 static void adv_buf_destroy(struct net_buf *buf)
 {
@@ -236,26 +238,26 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, voi
 	/* Check if the buffer has a priority tag */
 	if (BT_MESH_ADV(buf)->tag == BT_MESH_ADDR_PRIORITY_ADV) {
 		struct net_buf *temp_buf;
-		struct k_fifo temp_priority_queue;
-		k_fifo_init(&temp_priority_queue);
 
-		/* Pull all items from bt_mesh_adv_queue and put them into temp_priority_queue */
+		/* Pull all items from bt_mesh_adv_queue and put them into
+		 * temp_priority_queue */
 		while ((temp_buf = k_fifo_get(&bt_mesh_adv_queue, K_NO_WAIT)) != NULL) {
-			k_fifo_put(&temp_priority_queue, net_buf_ref(temp_buf));
+			k_fifo_put(&temp_priority_queue, temp_buf);
 		}
 
 		/* Put the priority packet in the bt_mesh_adv_queue */
-		k_fifo_put(&bt_mesh_adv_queue, buf);
+		// k_fifo_put(&bt_mesh_adv_queue, net_buf_ref(buf));
+		net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
 
 		/* Reinsert all elements from temp_priority_queue to bt_mesh_adv_queue */
 		while ((temp_buf = k_fifo_get(&temp_priority_queue, K_NO_WAIT)) != NULL) {
-			k_fifo_put(&bt_mesh_adv_queue, net_buf_ref(temp_buf));
+			// k_fifo_put(&bt_mesh_adv_queue, temp_buf);
+			net_buf_put(&bt_mesh_adv_queue, temp_buf);
 		}
+
 	} else {
 		net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
 	}
-		
-	// net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
 
 	bt_mesh_adv_buf_local_ready();
 }

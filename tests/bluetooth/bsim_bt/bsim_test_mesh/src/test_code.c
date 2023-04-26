@@ -7,6 +7,7 @@
 #include "mesh/net.h"
 #include "mesh/access.h"
 #include "mesh/foundation.h"
+// #include <stdlib.h>
 
 #define LOG_MODULE_NAME test_code
 
@@ -18,8 +19,9 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define UNICAST_ADDR3 0x0003
 #define UNICAST_ADDR4 0x0004
 
-#define WAIT_TIME   10	/*seconds*/
-#define TX_INTERVAL 200 /*miliseconds*/
+#define WAIT_TIME   10		   /*seconds*/
+#define TX_INTERVAL 20 /*miliseconds*/
+#define TX_COUNT    10
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
@@ -151,8 +153,8 @@ static void send_message_N1N3(struct k_work *work)
 
 	count++;
 
-	if (count < 20) {
-		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL + rand()%10));
 	}
 }
 
@@ -174,8 +176,8 @@ static void send_message_N1N4(struct k_work *work)
 
 	count++;
 
-	if (count < 20) {
-		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL+ rand()%10));
 	}
 }
 
@@ -197,8 +199,8 @@ static void send_message_N2N3(struct k_work *work)
 
 	count++;
 
-	if (count < 20) {
-		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL+ rand()%10));
 	}
 }
 
@@ -213,6 +215,7 @@ static void test_fifo(void)
 
 	struct test_item items[] = {{.value = 3}, {.value = 4}, {.value = 5},
 				    {.value = 6}, {.value = 7}, {.value = 8}};
+
 	for (size_t i = 0; i < ARRAY_SIZE(items); i++) {
 		k_fifo_put(&test_queue, &items[i]);
 	}
