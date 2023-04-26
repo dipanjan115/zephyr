@@ -7,6 +7,7 @@
 #include "mesh/net.h"
 #include "mesh/access.h"
 #include "mesh/foundation.h"
+// #include <stdlib.h>
 
 #define LOG_MODULE_NAME test_code
 
@@ -18,8 +19,9 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define UNICAST_ADDR3 0x0003
 #define UNICAST_ADDR4 0x0004
 
-#define WAIT_TIME   10	/*seconds*/
-#define TX_INTERVAL 200 /*miliseconds*/
+#define WAIT_TIME   10		   /*seconds*/
+#define TX_INTERVAL 20 /*miliseconds*/
+#define TX_COUNT    10
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
@@ -151,8 +153,8 @@ static void send_message_N1N3(struct k_work *work)
 
 	count++;
 
-	if (count < 20) {
-		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL + rand()%10));
 	}
 }
 
@@ -174,8 +176,8 @@ static void send_message_N1N4(struct k_work *work)
 
 	count++;
 
-	if (count < 20) {
-		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL+ rand()%10));
 	}
 }
 
@@ -197,51 +199,8 @@ static void send_message_N2N3(struct k_work *work)
 
 	count++;
 
-	if (count < 20) {
-		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
-	}
-}
-
-static void test_fifo(void)
-{
-	struct k_fifo test_queue;
-	k_fifo_init(&test_queue);
-	struct test_item {
-		sys_snode_t node;
-		int value;
-	};
-
-	struct test_item items[] = {{.value = 3}, {.value = 4}, {.value = 5},
-				    {.value = 6}, {.value = 7}, {.value = 8}};
-	for (size_t i = 0; i < ARRAY_SIZE(items); i++) {
-		k_fifo_put(&test_queue, &items[i]);
-	}
-
-	struct test_item *item;
-	struct k_fifo temp_queue;
-
-	k_fifo_init(&temp_queue);
-	printk("test_queue contents:\n");
-
-	while ((item = k_fifo_get(&test_queue, K_NO_WAIT)) != NULL) {
-		printk("%d\n", item->value);
-		k_fifo_put(&temp_queue, item);
-	}
-
-	struct test_item priority_val[] = {{.value = 0}};
-	for (size_t i = 0; i < ARRAY_SIZE(priority_val); i++) {
-		k_fifo_put(&test_queue, &priority_val[i]);
-	}
-
-	// Re-enqueue items back to the test_queue from the temporary queue
-	while ((item = k_fifo_get(&temp_queue, K_NO_WAIT)) != NULL) {
-		k_fifo_put(&test_queue, item);
-	}
-
-	printk("test_queue contents with priority element added at the start:\n");
-
-	while ((item = k_fifo_get(&test_queue, K_NO_WAIT)) != NULL) {
-		printk("%d\n", item->value);
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL+ rand()%10));
 	}
 }
 
@@ -291,13 +250,11 @@ static void test_rx_node_4(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR4);
 	common_configure(UNICAST_ADDR4);
-	test_fifo();
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
 }
 
-/*Make a test case to tweak with the buffer*/
 
 #define TEST_CASE(role, name, description)                                                         \
 	{                                                                                          \

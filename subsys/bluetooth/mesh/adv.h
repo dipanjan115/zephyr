@@ -40,7 +40,7 @@ struct bt_mesh_adv {
 	uint16_t	type:2,
 		  	started:1,
 		  	busy:1,
-		  	tag:5; // Accomodates the new tag
+		  	tag:5; // Accomodates the new tag increased size from 8 bit to 16 bit
 
 	uint8_t		xmit;
 };
@@ -58,7 +58,7 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb,
 
 struct net_buf *bt_mesh_adv_buf_get(k_timeout_t timeout);
 
-struct net_buf *bt_mesh_adv_buf_get_by_tag(uint16_t tag, k_timeout_t timeout);
+struct net_buf *bt_mesh_adv_buf_get_by_tag(uint16_t tag, k_timeout_t timeout); // Increased size of tag from 8 to 16 bit
 
 void bt_mesh_adv_gatt_update(void);
 

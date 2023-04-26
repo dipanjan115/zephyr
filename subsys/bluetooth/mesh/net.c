@@ -43,6 +43,13 @@ LOG_MODULE_REGISTER(bt_mesh_net);
 
 #define LOOPBACK_MAX_PDU_LEN (BT_MESH_NET_HDR_LEN + 16)
 
+/*Priority Src and Dst*/
+#define PRIORITY_SRC 0x0001
+#define PRIORITY_DST 0x0004
+
+/*Address Based Priority Setting*/
+#define ADDR_PRIORITY_ENABLED 1
+
 /* Seq limit after IV Update is triggered */
 #define IV_UPDATE_SEQ_LIMIT CONFIG_BT_MESH_IV_UPDATE_SEQ_LIMIT
 
@@ -497,6 +504,13 @@ static int net_loopback(const struct bt_mesh_net_tx *tx, const uint8_t *data, si
 	return 0;
 }
 
+void bt_mesh_priority_tag_set(uint16_t src, uint16_t dst, struct net_buf *buf)
+{
+	if ((src == PRIORITY_SRC) && (dst == PRIORITY_DST)) {
+		BT_MESH_ADV(buf)->tag = BT_MESH_ADDR_PRIORITY_ADV;
+	}
+}
+
 int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 		     const struct bt_mesh_send_cb *cb, void *cb_data)
 {
@@ -546,8 +560,9 @@ int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 	BT_MESH_ADV(buf)->cb = cb;
 	BT_MESH_ADV(buf)->cb_data = cb_data;
 
-	if (tx->ctx->addr == 0x0002) {
-		BT_MESH_ADV(buf)->tag = BT_MESH_ADDR_PRIORITY_ADV;
+	/*Sets BT_MESH_ADDR_PRIORITY_ADV*/
+	if (ADDR_PRIORITY_ENABLED) {
+		bt_mesh_priority_tag_set(tx->src, tx->ctx->addr, buf);
 	}
 
 	/* Deliver to GATT Proxy Clients if necessary. */
@@ -681,6 +696,12 @@ static void bt_mesh_net_relay(struct net_buf_simple *sbuf, struct bt_mesh_net_rx
 	}
 
 	buf = bt_mesh_adv_create(BT_MESH_ADV_DATA, BT_MESH_RELAY_ADV, transmit, K_NO_WAIT);
+
+	/*Sets Tag For Relay Nodes*/
+	if (ADDR_PRIORITY_ENABLED) {
+		bt_mesh_priority_tag_set(rx->ctx.addr, rx->ctx.recv_dst, buf);
+	}
+
 	if (!buf) {
 		LOG_DBG("Out of relay buffers");
 		return;
