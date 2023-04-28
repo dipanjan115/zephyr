@@ -272,7 +272,31 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, voi
 		bt_mesh_adv_queue_prepend(buf);
 	}
 
+<<<<<<<<< Temporary merge branch 1
+	/* Check if the buffer has a priority tag */
+	if (BT_MESH_ADV(buf)->tag == BT_MESH_ADDR_PRIORITY_ADV) {
+		struct net_buf *temp_buf;
+
+		/* Pull all items from bt_mesh_adv_queue and put them into
+		 * temp_priority_queue */
+		while ((temp_buf = k_fifo_get(&bt_mesh_adv_queue, K_NO_WAIT)) != NULL) {
+			k_fifo_put(&temp_priority_queue, temp_buf);
+		}
+
+		/* Put the priority packet in the bt_mesh_adv_queue */
+		// k_fifo_put(&bt_mesh_adv_queue, net_buf_ref(buf));
+		net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
+
+		/* Reinsert all elements from temp_priority_queue to bt_mesh_adv_queue */
+		while ((temp_buf = k_fifo_get(&temp_priority_queue, K_NO_WAIT)) != NULL) {
+			// k_fifo_put(&bt_mesh_adv_queue, temp_buf);
+			net_buf_put(&bt_mesh_adv_queue, temp_buf);
+		}
+
+	} else {
+=========
 	else {
+>>>>>>>>> Temporary merge branch 2
 		net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
 	}
 
