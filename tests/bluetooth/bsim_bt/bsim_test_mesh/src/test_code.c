@@ -7,33 +7,40 @@
 #include "mesh/net.h"
 #include "mesh/access.h"
 #include "mesh/foundation.h"
-// #include <stdlib.h>
 
 #define LOG_MODULE_NAME test_code
 
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 
-#define UNICAST_ADDR1 0x0001
-#define UNICAST_ADDR2 0x0002
-#define UNICAST_ADDR3 0x0003
-#define UNICAST_ADDR4 0x0004
+#define UNICAST_ADDR0 0x0001
+#define UNICAST_ADDR1 0x0002
+#define UNICAST_ADDR2 0x0003
+#define UNICAST_ADDR3 0x0004
+#define UNICAST_ADDR4 0x0005
+#define UNICAST_ADDR5 0x0006
 
 #define WAIT_TIME   10		   /*seconds*/
-#define TX_INTERVAL 20 /*miliseconds*/
+#define TX_INTERVAL 20 		   /*miliseconds*/
 #define TX_COUNT    10
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
+#define TEST_MODEL_ID_3 0x2c2c
 
 #define TEST_MESSAGE_OP_1 BT_MESH_MODEL_OP_1(0x11)
 #define TEST_MESSAGE_OP_2 BT_MESH_MODEL_OP_1(0x12)
+#define TEST_MESSAGE_OP_3 BT_MESH_MODEL_OP_1(0x13)
 
 static int model1_init(struct bt_mesh_model *model)
 {
 	return 0;
 }
 static int model2_init(struct bt_mesh_model *model)
+{
+	return 0;
+}
+static int model3_init(struct bt_mesh_model *model)
 {
 	return 0;
 }
@@ -58,11 +65,18 @@ static const struct bt_mesh_model_cb test_model2_cb = {
 	.init = model2_init,
 };
 
+static const struct bt_mesh_model_cb test_model3_cb = {
+	.init = model3_init,
+};
+
 static const struct bt_mesh_model_op model_op1[] = {{TEST_MESSAGE_OP_1, 0, test_msg_handler},
 						    BT_MESH_MODEL_OP_END};
 
 static const struct bt_mesh_model_op model_op2[] = {{TEST_MESSAGE_OP_2, 0, test_msg_handler},
 						    BT_MESH_MODEL_OP_END};
+
+static const struct bt_mesh_model_op model_op3[] = {{TEST_MESSAGE_OP_3, 0, test_msg_handler},
+						    BT_MESH_MODEL_OP_END};						    
 
 static struct bt_mesh_cfg_cli cfg_cli;
 
@@ -72,6 +86,7 @@ static struct bt_mesh_model models[] = {
 	BT_MESH_MODEL_CFG_CLI(&cfg_cli),
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_1, model_op1, NULL, NULL, &test_model1_cb),
 	BT_MESH_MODEL_CB(TEST_MODEL_ID_2, model_op2, NULL, NULL, &test_model2_cb),
+	BT_MESH_MODEL_CB(TEST_MODEL_ID_3, model_op3, NULL, NULL, &test_model3_cb),
 };
 
 static struct bt_mesh_model vnd_models[] = {};
@@ -100,20 +115,13 @@ static void common_configure(uint16_t addr)
 {
 	uint8_t status;
 	int err;
-	// uint16_t model_ids[] = {TEST_MODEL_ID_1};
-	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2};
+	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2, TEST_MODEL_ID_3};
 
 	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
 	if (err || status) {
 		FAIL("AppKey add failed (err %d, status %u)", err, status);
 		return;
 	}
-
-	// err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr, 0, TEST_MODEL_ID_1, &status);
-	// if (err || status) {
-	// 	FAIL("Model %#4x bind failed (err %d, status %u)", TEST_MODEL_ID_1, err, status);
-	// 	return;
-	// }
 
 	for (int i = 0; i < ARRAY_SIZE(model_ids); i++) {
 		err = bt_mesh_cfg_cli_mod_app_bind(0, addr, addr, 0, model_ids[i], &status);
@@ -123,19 +131,16 @@ static void common_configure(uint16_t addr)
 			return;
 		}
 	}
-
-	// err = bt_mesh_cfg_cli_net_transmit_set(0, addr, BT_MESH_TRANSMIT(2, 20), &status);
-	// if (err || status != BT_MESH_TRANSMIT(2, 20)) {
-	// 	FAIL("Net transmit set failed (err %d, status %u)", err, status);
-	// 	return;
-	// }
 }
 
+static struct k_work_delayable delayed_work_N0N3;
 static struct k_work_delayable delayed_work_N1N3;
-static struct k_work_delayable delayed_work_N1N4;
 static struct k_work_delayable delayed_work_N2N3;
+static struct k_work_delayable delayed_work_N0N4;
+static struct k_work_delayable delayed_work_N0N5;
+static struct k_work_delayable delayed_work_N2N5;
 
-static void send_message_N1N3(struct k_work *work)
+static void send_message_N0N3(struct k_work *work)
 {
 	static int count = 0;
 	struct bt_mesh_msg_ctx ctx = {
@@ -154,11 +159,11 @@ static void send_message_N1N3(struct k_work *work)
 	count++;
 
 	if (count < TX_COUNT) {
-		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL + rand()%10));
+		k_work_reschedule(&delayed_work_N0N3, K_MSEC(TX_INTERVAL + rand()%10));
 	}
 }
 
-static void send_message_N1N4(struct k_work *work)
+static void send_message_N0N4(struct k_work *work)
 {
 	static int count = 0;
 	struct bt_mesh_msg_ctx ctx = {
@@ -177,11 +182,34 @@ static void send_message_N1N4(struct k_work *work)
 	count++;
 
 	if (count < TX_COUNT) {
-		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL+ rand()%10));
+		k_work_reschedule(&delayed_work_N0N4, K_MSEC(TX_INTERVAL + rand()%10));
 	}
 }
 
-static void send_message_N2N3(struct k_work *work)
+static void send_message_N0N5(struct k_work *work)
+{
+	static int count = 0;
+	struct bt_mesh_msg_ctx ctx = {
+		.net_idx = 0,
+		.app_idx = 0,
+		.addr = UNICAST_ADDR5,
+		.send_rel = false,
+		.send_ttl = 3,
+	};
+
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
+	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
+
+	count++;
+
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N0N5, K_MSEC(TX_INTERVAL + rand()%10));
+	}
+}
+
+static void send_message_N1N3(struct k_work *work)
 {
 	static int count = 0;
 	struct bt_mesh_msg_ctx ctx = {
@@ -200,8 +228,74 @@ static void send_message_N2N3(struct k_work *work)
 	count++;
 
 	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL+ rand()%10));
+	}
+}
+
+static void send_message_N2N3(struct k_work *work)
+{
+	static int count = 0;
+	struct bt_mesh_msg_ctx ctx = {
+		.net_idx = 0,
+		.app_idx = 0,
+		.addr = UNICAST_ADDR3,
+		.send_rel = false,
+		.send_ttl = 3,
+	};
+
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_3, 0);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_3);
+	bt_mesh_model_send(&models[4], &ctx, &buf, NULL, NULL);
+
+	count++;
+
+	if (count < TX_COUNT) {
 		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL+ rand()%10));
 	}
+}
+
+static void send_message_N2N5(struct k_work *work)
+{
+	static int count = 0;
+	struct bt_mesh_msg_ctx ctx = {
+		.net_idx = 0,
+		.app_idx = 0,
+		.addr = UNICAST_ADDR5,
+		.send_rel = false,
+		.send_ttl = 3,
+	};
+
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_3, 0);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_3);
+	bt_mesh_model_send(&models[4], &ctx, &buf, NULL, NULL);
+
+	count++;
+
+	if (count < TX_COUNT) {
+		k_work_reschedule(&delayed_work_N2N5, K_MSEC(TX_INTERVAL+ rand()%10));
+	}
+}
+
+static void test_tx_node_0(void)
+{
+	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
+	bt_mesh_device_setup(&prov, &local_comp);
+	provision(UNICAST_ADDR0);
+	common_configure(UNICAST_ADDR0);
+	LOG_INF(" ---- ## CONFIG DONE ## ");
+
+	k_work_init_delayable(&delayed_work_N0N3, send_message_N0N3);
+	k_work_reschedule(&delayed_work_N0N3, K_MSEC(TX_INTERVAL));
+
+	k_work_init_delayable(&delayed_work_N0N4, send_message_N0N4);
+	k_work_reschedule(&delayed_work_N0N4, K_MSEC(TX_INTERVAL));
+
+	k_work_init_delayable(&delayed_work_N0N5, send_message_N0N5);
+	k_work_reschedule(&delayed_work_N0N5, K_MSEC(TX_INTERVAL));
+
+	PASS();
 }
 
 static void test_tx_node_1(void)
@@ -214,9 +308,6 @@ static void test_tx_node_1(void)
 
 	k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
 	k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL));
-
-	k_work_init_delayable(&delayed_work_N1N4, send_message_N1N4);
-	k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL));
 	PASS();
 }
 
@@ -230,6 +321,10 @@ static void test_tx_node_2(void)
 
 	k_work_init_delayable(&delayed_work_N2N3, send_message_N2N3);
 	k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
+
+	k_work_init_delayable(&delayed_work_N2N5, send_message_N2N5);
+	k_work_reschedule(&delayed_work_N2N5, K_MSEC(TX_INTERVAL));
+
 	PASS();
 }
 
@@ -255,6 +350,17 @@ static void test_rx_node_4(void)
 	PASS();
 }
 
+static void test_rx_node_5(void)
+{
+	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
+	bt_mesh_device_setup(&prov, &local_comp);
+	provision(UNICAST_ADDR5);
+	common_configure(UNICAST_ADDR5);
+	LOG_INF(" ---- ## CONFIG DONE ## ");
+
+	PASS();
+}
+
 
 #define TEST_CASE(role, name, description)                                                         \
 	{                                                                                          \
@@ -263,10 +369,12 @@ static void test_rx_node_4(void)
 	}
 
 static const struct bst_test_instance test_code[] = {
+	TEST_CASE(tx, node_0, "Access: tx data of node 0"),
 	TEST_CASE(tx, node_1, "Access: tx data of node 1"),
 	TEST_CASE(tx, node_2, "Access: tx data of node 2"),
 	TEST_CASE(rx, node_3, "Acess: rx data of node 3"),
-	TEST_CASE(rx, node_4, "Acess: rx data of node 4"), BSTEST_END_MARKER};
+	TEST_CASE(rx, node_4, "Acess: rx data of node 4"),
+	TEST_CASE(rx, node_5, "Acess: rx data of node 5"), BSTEST_END_MARKER};
 
 struct bst_test_list *test_code_install(struct bst_test_list *tests)
 {
