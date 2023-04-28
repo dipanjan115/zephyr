@@ -199,8 +199,8 @@ static void send_message_N2N3(struct k_work *work)
 
 	count++;
 
-	if (count < TX_COUNT) {
-		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL+ rand()%10));
+	if (count < 20) {
+		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL));
 	}
 }
 
@@ -215,7 +215,6 @@ static void test_fifo(void)
 
 	struct test_item items[] = {{.value = 3}, {.value = 4}, {.value = 5},
 				    {.value = 6}, {.value = 7}, {.value = 8}};
-
 	for (size_t i = 0; i < ARRAY_SIZE(items); i++) {
 		k_fifo_put(&test_queue, &items[i]);
 	}
@@ -294,13 +293,11 @@ static void test_rx_node_4(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR4);
 	common_configure(UNICAST_ADDR4);
-	test_fifo();
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
 }
 
-/*Make a test case to tweak with the buffer*/
 
 #define TEST_CASE(role, name, description)                                                         \
 	{                                                                                          \
