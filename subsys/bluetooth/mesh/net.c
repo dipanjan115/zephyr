@@ -683,7 +683,7 @@ static void bt_mesh_net_relay(struct net_buf_simple *sbuf, struct bt_mesh_net_rx
 		return;
 	}
 
-	LOG_DBG("TTL %u CTL %u dst 0x%04x", rx->ctx.recv_ttl, rx->ctl, rx->ctx.recv_dst);
+	LOG_DBG("TTL %u CTL %u src 0x%04x dst 0x%04x", rx->ctx.recv_ttl, rx->ctl, rx->ctx.addr, rx->ctx.recv_dst);
 
 	/* The Relay Retransmit state is only applied to adv-adv relaying.
 	 * Anything else (like GATT to adv, or locally originated packets)
