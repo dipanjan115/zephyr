@@ -45,7 +45,7 @@ LOG_MODULE_REGISTER(bt_mesh_net);
 
 /*Priority Src and Dst*/
 #define PRIORITY_SRC 0x0001
-#define PRIORITY_DST 0x0004
+#define PRIORITY_DST 0x0006
 
 /*Address Based Priority Setting*/
 #define ADDR_PRIORITY_ENABLED 1

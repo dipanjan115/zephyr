@@ -19,7 +19,7 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define UNICAST_ADDR3 0x0004
 #define UNICAST_ADDR4 0x0005
 #define UNICAST_ADDR5 0x0006
-#define GROUP_ADDR1   0xc000
+#define GROUP_ADDR    0xC000
 
 #define WAIT_TIME   10	/*seconds*/
 #define TX_INTERVAL 100 /*miliseconds*/
@@ -55,6 +55,7 @@ static int test_msg_handler(struct bt_mesh_model *model, struct bt_mesh_msg_ctx 
 
 static uint8_t dev_key[16] = {0xdd};
 static uint8_t app_key[16] = {0xaa};
+// static uint8_t app_key_groupcast[16] = {0xbb};
 static uint8_t net_key[16] = {0xcc};
 static struct bt_mesh_prov prov;
 
@@ -134,27 +135,35 @@ static void common_configure(uint16_t addr)
 	}
 }
 
-static void subscription_configure(uint16_t addr)
+/* Group Subscription*/
+static void common_subscription(uint16_t addr)
 {
 	uint8_t status;
 	int err;
+	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2, TEST_MODEL_ID_3};
 
-	err = bt_mesh_cfg_cli_mod_sub_add(0, addr, addr, GROUP_ADDR1, TEST_MODEL_ID_2, &status);
-
+	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
 	if (err || status) {
-		FAIL("Model %#4x subscription configuration failed (err %d, status %u)",
-				TEST_MODEL_ID_2, err, status);
+		FAIL("AppKey add failed (err %d, status %u)", err, status);
 		return;
 	}
-}
 
+	for (int i = 0; i < ARRAY_SIZE(model_ids); i++) {
+		err = bt_mesh_cfg_cli_mod_sub_add(0, addr, addr, GROUP_ADDR, model_ids[i], &status);
+		if (err || status) {
+			FAIL("Model %#4x sub add failed (err %d, status %u)", model_ids[i], err,
+			     status);
+			return;
+		}
+	}
+}
 static struct k_work_delayable delayed_work_N0N3;
 static struct k_work_delayable delayed_work_N1N3;
 static struct k_work_delayable delayed_work_N2N3;
 static struct k_work_delayable delayed_work_N0N4;
 static struct k_work_delayable delayed_work_N0N5;
 static struct k_work_delayable delayed_work_N2N5;
-static struct k_work_delayable delayed_work_group1;
+static struct k_work_delayable delayed_work_group;
 
 static void send_message_N0N3(struct k_work *work)
 {
@@ -294,13 +303,13 @@ static void send_message_N2N5(struct k_work *work)
 	}
 }
 
-static void send_message_GROUP1(struct k_work *work)
+static void send_message_GROUP(struct k_work *work)
 {
 	static int count = 0;
 	struct bt_mesh_msg_ctx ctx = {
 		.net_idx = 0,
 		.app_idx = 0,
-		.addr = GROUP_ADDR1,
+		.addr = GROUP_ADDR,
 		.send_rel = false,
 		.send_ttl = 3,
 	};
@@ -313,7 +322,7 @@ static void send_message_GROUP1(struct k_work *work)
 	count++;
 
 	if (count < TX_COUNT) {
-		k_work_reschedule(&delayed_work_group1, K_MSEC(TX_INTERVAL + rand() % 10));
+		k_work_reschedule(&delayed_work_group, K_MSEC(TX_INTERVAL + rand() % 10));
 	}
 }
 
@@ -323,7 +332,6 @@ static void test_tx_node_0(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR0);
 	common_configure(UNICAST_ADDR0);
-	subscription_configure(UNICAST_ADDR0);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	k_work_init_delayable(&delayed_work_N0N3, send_message_N0N3);
@@ -335,8 +343,8 @@ static void test_tx_node_0(void)
 	k_work_init_delayable(&delayed_work_N0N5, send_message_N0N5);
 	k_work_reschedule(&delayed_work_N0N5, K_MSEC(TX_INTERVAL));
 
-	k_work_init_delayable(&delayed_work_group1, send_message_GROUP1);
-	k_work_reschedule(&delayed_work_group1, K_MSEC(TX_INTERVAL));
+	k_work_init_delayable(&delayed_work_group, send_message_GROUP);
+	k_work_reschedule(&delayed_work_group, K_MSEC(TX_INTERVAL));
 
 	PASS();
 }
@@ -377,7 +385,6 @@ static void test_rx_node_3(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR3);
 	common_configure(UNICAST_ADDR3);
-	subscription_configure(UNICAST_ADDR3);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
@@ -389,6 +396,7 @@ static void test_rx_node_4(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR4);
 	common_configure(UNICAST_ADDR4);
+	common_subscription(UNICAST_ADDR4);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
@@ -400,7 +408,7 @@ static void test_rx_node_5(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR5);
 	common_configure(UNICAST_ADDR5);
-	subscription_configure(UNICAST_ADDR5);
+	common_subscription(UNICAST_ADDR5);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
