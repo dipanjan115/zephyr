@@ -55,7 +55,6 @@ static int test_msg_handler(struct bt_mesh_model *model, struct bt_mesh_msg_ctx 
 
 static uint8_t dev_key[16] = {0xdd};
 static uint8_t app_key[16] = {0xaa};
-// static uint8_t app_key_groupcast[16] = {0xbb};
 static uint8_t net_key[16] = {0xcc};
 static struct bt_mesh_prov prov;
 
@@ -140,23 +139,29 @@ static void common_subscription(uint16_t addr)
 {
 	uint8_t status;
 	int err;
-	uint16_t model_ids[] = {TEST_MODEL_ID_1, TEST_MODEL_ID_2, TEST_MODEL_ID_3};
 
-	err = bt_mesh_cfg_cli_app_key_add(0, addr, 0, 0, app_key, &status);
+	err = bt_mesh_cfg_cli_mod_sub_add(0, addr, addr, GROUP_ADDR, TEST_MODEL_ID_1, &status);
+
 	if (err || status) {
-		FAIL("AppKey add failed (err %d, status %u)", err, status);
+		FAIL("Model %#4x subscription configuration failed (err %d, status %u)",
+				TEST_MODEL_ID_1, err, status);
 		return;
 	}
+}
+/* Relay Configuration*/
+static void relay_configuration(uint16_t addr, uint8_t new_relay)
+{
+	uint8_t status;
+	int err;
 
-	for (int i = 0; i < ARRAY_SIZE(model_ids); i++) {
-		err = bt_mesh_cfg_cli_mod_sub_add(0, addr, addr, GROUP_ADDR, model_ids[i], &status);
-		if (err || status) {
-			FAIL("Model %#4x sub add failed (err %d, status %u)", model_ids[i], err,
-			     status);
-			return;
-		}
+	err = bt_mesh_cfg_cli_relay_set(0, addr, new_relay, NULL, &status, NULL);
+	if (err || status) {
+		FAIL("Node %04x relay set up failed (err %d, status %u)", addr, err, status);
+		return;
 	}
 }
+
+
 static struct k_work_delayable delayed_work_N0N3;
 static struct k_work_delayable delayed_work_N1N3;
 static struct k_work_delayable delayed_work_N2N3;
@@ -332,6 +337,7 @@ static void test_tx_node_0(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR0);
 	common_configure(UNICAST_ADDR0);
+	relay_configuration(UNICAST_ADDR0, BT_MESH_RELAY_DISABLED);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	k_work_init_delayable(&delayed_work_N0N3, send_message_N0N3);
@@ -355,6 +361,7 @@ static void test_tx_node_1(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR1);
 	common_configure(UNICAST_ADDR1);
+	relay_configuration(UNICAST_ADDR1, BT_MESH_RELAY_DISABLED);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
@@ -368,6 +375,7 @@ static void test_tx_node_2(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR2);
 	common_configure(UNICAST_ADDR2);
+	relay_configuration(UNICAST_ADDR2, BT_MESH_RELAY_DISABLED);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	k_work_init_delayable(&delayed_work_N2N3, send_message_N2N3);
@@ -409,6 +417,7 @@ static void test_rx_node_5(void)
 	provision(UNICAST_ADDR5);
 	common_configure(UNICAST_ADDR5);
 	common_subscription(UNICAST_ADDR5);
+	relay_configuration(UNICAST_ADDR5, BT_MESH_RELAY_DISABLED);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
