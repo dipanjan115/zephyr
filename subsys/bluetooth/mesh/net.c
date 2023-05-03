@@ -48,7 +48,7 @@ LOG_MODULE_REGISTER(bt_mesh_net);
 #define PRIORITY_DST 0x0006
 
 /*Address Based Priority Setting*/
-#define ADDR_PRIORITY_ENABLED 1
+#define ADDR_PRIORITY_ENABLED 0
 
 /* Seq limit after IV Update is triggered */
 #define IV_UPDATE_SEQ_LIMIT CONFIG_BT_MESH_IV_UPDATE_SEQ_LIMIT
