@@ -21,11 +21,11 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define UNICAST_ADDR5 0x0006
 #define GROUP_ADDR    0xC000
 
-#define WAIT_TIME   10	/*seconds*/
-#define TX_INTERVAL_N0 10 /*miliseconds*/
+#define WAIT_TIME   10	/*seconds*/ /* Modify this in order to make sure the test doesn't time out*/
+#define TX_INTERVAL_N0 0 /*miliseconds*/
 #define TX_INTERVAL_N1 110 /*miliseconds*/
 #define TX_INTERVAL_N2 90 /*miliseconds*/
-#define TX_COUNT 20
+#define TX_COUNT 100
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
@@ -150,25 +150,7 @@ static void common_configure(uint16_t addr)
 // 		return;
 // 	}
 // }
-/* Relay Configuration*/
-// static void relay_configuration(uint16_t addr, uint8_t new_relay)
-// {
-// 	uint8_t status;
-// 	int err;
 
-// 	err = bt_mesh_cfg_cli_relay_set(0, addr, new_relay, NULL, &status, NULL);
-// 	if (err || status) {
-// 		FAIL("Node %04x relay set up failed (err %d, status %u)", addr, err, status);
-// 		return;
-// 	}
-// }
-
-	if (err || status) {
-		FAIL("Model %#4x subscription configuration failed (err %d, status %u)",
-				TEST_MODEL_ID_1, err, status);
-		return;
-	}
-}
 /* Relay Configuration*/
 static void relay_configuration(uint16_t addr, uint8_t new_relay)
 {
@@ -409,7 +391,7 @@ static void test_tx_node_2(void)
 }
 
 static void test_rx_node_3(void)
-{
+{	
 	bt_mesh_test_cfg_set(NULL, WAIT_TIME);
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR3);
@@ -437,10 +419,8 @@ static void test_rx_node_5(void)
 	bt_mesh_device_setup(&prov, &local_comp);
 	provision(UNICAST_ADDR5);
 	common_configure(UNICAST_ADDR5);
-	common_subscription(UNICAST_ADDR5);
-	relay_configuration(UNICAST_ADDR5, BT_MESH_RELAY_DISABLED);
 	// common_subscription(UNICAST_ADDR5);
-	// relay_configuration(UNICAST_ADDR5, BT_MESH_RELAY_DISABLED);
+	relay_configuration(UNICAST_ADDR5, BT_MESH_RELAY_DISABLED);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
 
 	PASS();
