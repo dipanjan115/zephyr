@@ -44,11 +44,11 @@ LOG_MODULE_REGISTER(bt_mesh_net);
 #define LOOPBACK_MAX_PDU_LEN (BT_MESH_NET_HDR_LEN + 16)
 
 /*Priority Src and Dst*/
-#define PRIORITY_SRC 0x0001
+#define PRIORITY_SRC 0x0003
 #define PRIORITY_DST 0x0006
 
 /*Address Based Priority Setting*/
-#define ADDR_PRIORITY_ENABLED 1
+#define ADDR_PRIORITY_ENABLED 0
 
 /* Seq limit after IV Update is triggered */
 #define IV_UPDATE_SEQ_LIMIT CONFIG_BT_MESH_IV_UPDATE_SEQ_LIMIT
@@ -507,7 +507,7 @@ static int net_loopback(const struct bt_mesh_net_tx *tx, const uint8_t *data, si
 void bt_mesh_priority_tag_set(uint16_t src, uint16_t dst, struct net_buf *buf)
 {
 	if ((src == PRIORITY_SRC) && (dst == PRIORITY_DST)) {
-		BT_MESH_ADV(buf)->tag = BT_MESH_ADDR_PRIORITY_ADV;
+		BT_MESH_ADV(buf)->tag |= BT_MESH_ADDR_PRIORITY_ADV;
 	}
 }
 
@@ -523,7 +523,7 @@ int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 	// LOG_DBG("Seq 0x%06x", bt_mesh.seq);
 
 	cred = net_tx_cred_get(tx);
-	err = net_header_encode(tx, cred->nid, &buf->b);
+	err = net_header_encode(tx, cred->nid, &buf->b);	
 	if (err) {
 		goto done;
 	}
