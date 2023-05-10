@@ -44,8 +44,7 @@ const uint8_t bt_mesh_adv_type[BT_MESH_ADV_TYPES] = {
 static K_FIFO_DEFINE(bt_mesh_adv_queue);
 static K_FIFO_DEFINE(bt_mesh_relay_queue);
 static K_FIFO_DEFINE(bt_mesh_friend_queue);
-static K_FIFO_DEFINE(
-	temp_priority_queue); /*Temporary FIFO Queue used for appending priority buf to adv_queue*/
+static K_FIFO_DEFINE(temp_priority_queue);
 static K_FIFO_DEFINE(temp_relay_queue);
 
 static void adv_buf_destroy(struct net_buf *buf)
@@ -212,57 +211,6 @@ void bt_mesh_adv_buf_get_cancel(void)
 	}
 }
 
-/*Checks if Priority is enabled or not. Returns 1 if enabled*/
-int bt_mesh_priority_buf_check(struct net_buf *buf)
-{
-	if (BT_MESH_ADV(buf)->tag == BT_MESH_ADDR_PRIORITY_ADV) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-// /*Prepends priority buf to the start of the FIFO Adv Queue*/
-// void bt_mesh_adv_queue_prepend(struct net_buf *buf)
-// {
-
-// 	struct net_buf *temp_buf;
-
-// 	/* Pull all items from bt_mesh_adv_queue and put them into
-// 	 * temp_priority_queue */
-// 	while ((temp_buf = k_fifo_get(&bt_mesh_adv_queue, K_NO_WAIT)) != NULL) {
-// 		k_fifo_put(&temp_priority_queue, temp_buf);
-// 	}
-
-// 	/* Put the priority packet in the bt_mesh_adv_queue */
-// 	net_buf_put(&bt_mesh_adv_queue, net_buf_ref(buf));
-
-// 	/* Reinsert all elements from temp_priority_queue to bt_mesh_adv_queue */
-// 	while ((temp_buf = k_fifo_get(&temp_priority_queue, K_NO_WAIT)) != NULL) {
-// 		net_buf_put(&bt_mesh_adv_queue, temp_buf);
-// 	}
-// }
-
-// void bt_mesh_relay_queue_prepend(struct net_buf *buf)
-// {
-
-// 	struct net_buf *temp_buf;
-
-// 	/* Pull all items from bt_mesh_relay_queue and put them into
-// 	 * temp_priority_queue */
-// 	while ((temp_buf = k_fifo_get(&bt_mesh_relay_queue, K_NO_WAIT)) != NULL) {
-// 		k_fifo_put(&temp_relay_queue, temp_buf);
-// 	}
-
-// 	/* Put the priority packet in the bt_mesh_adv_queue */
-// 	net_buf_put(&bt_mesh_relay_queue, net_buf_ref(buf));
-
-// 	/* Reinsert all elements from temp_priority_queue to bt_mesh_adv_queue */
-// 	while ((temp_buf = k_fifo_get(&temp_relay_queue, K_NO_WAIT)) != NULL) {
-// 		net_buf_put(&bt_mesh_relay_queue, temp_buf);
-// 	}
-// }
-
 void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, void *cb_data)
 {
 	LOG_DBG("type 0x%02x len %u: %s", BT_MESH_ADV(buf)->type, buf->len,
@@ -280,12 +228,10 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, voi
 	}
 
 #if CONFIG_BT_MESH_RELAY_ADV_SETS
-	if (BT_MESH_ADV(buf)->tag == BT_MESH_RELAY_ADV &&
-	    BT_MESH_ADV(buf)->tag == BT_MESH_ADDR_PRIORITY_ADV) {
+	if ((BT_MESH_ADV(buf)->tag & BT_MESH_RELAY_ADV) &&
+	    (BT_MESH_ADV(buf)->tag & BT_MESH_ADDR_PRIORITY_ADV)) {
 
 		struct net_buf *temp_relay_buf;
-		/* Pull all items from bt_mesh_adv_queue and put them into
-		 * temp_priority_queue */
 		while ((temp_relay_buf = k_fifo_get(&bt_mesh_relay_queue, K_NO_WAIT)) != NULL) {
 			k_fifo_put(&temp_relay_queue, temp_relay_buf);
 		}
@@ -306,15 +252,8 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, voi
 		return;
 	}
 #endif
-	/*Prioritization Status Check and If True Prepends the buf to the Adv Queue*/
-	// if (bt_mesh_priority_buf_check(buf)) {
-	// 	bt_mesh_adv_queue_prepend(buf);
-	// }
 	if (BT_MESH_ADV(buf)->tag == BT_MESH_ADDR_PRIORITY_ADV) {
 		struct net_buf *temp_buf;
-		
-		/* Pull all items from bt_mesh_adv_queue and put them into
-		 * temp_priority_queue */
 		while ((temp_buf = k_fifo_get(&bt_mesh_adv_queue, K_NO_WAIT)) != NULL) {
 			k_fifo_put(&temp_priority_queue, temp_buf);
 		}

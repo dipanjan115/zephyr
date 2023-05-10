@@ -23,10 +23,11 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 
 #define WAIT_TIME 12	/*seconds*/ /* Modify this in order to make sure the test doesn't time out*/
 #define TX_INTERVAL_N0 10 /*miliseconds*/
-#define TX_INTERVAL_N1 10 /*miliseconds*/
+#define TX_INTERVAL_N1 100 /*miliseconds*/
 #define TX_INTERVAL_N2 100 /*miliseconds*/
-#define TX_COUNT 20
-#define TX_COUNT_NOISE (((WAIT_TIME * 1000)/TX_INTERVAL_N0) + 10)
+#define TX_COUNT 100
+// #define TX_COUNT_NOISE (((WAIT_TIME * 1000)/TX_INTERVAL_N0) + 10)
+#define TX_COUNT_NOISE 100
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
