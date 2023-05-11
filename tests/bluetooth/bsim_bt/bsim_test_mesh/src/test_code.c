@@ -22,12 +22,11 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define GROUP_ADDR    0xC000
 
 #define WAIT_TIME 12	/*seconds*/ /* Modify this in order to make sure the test doesn't time out*/
-#define TX_INTERVAL_N0 10 /*miliseconds*/
-#define TX_INTERVAL_N1 100 /*miliseconds*/
-#define TX_INTERVAL_N2 100 /*miliseconds*/
-#define TX_COUNT 100
-// #define TX_COUNT_NOISE (((WAIT_TIME * 1000)/TX_INTERVAL_N0) + 10)
-#define TX_COUNT_NOISE 100
+#define TX_INTERVAL_N0 100 /*miliseconds*/
+#define TX_INTERVAL_N1 150 /*miliseconds*/
+#define TX_INTERVAL_N2 150 /*miliseconds*/
+#define TX_COUNT 10
+#define TX_COUNT_NOISE (((WAIT_TIME * 1000)/TX_INTERVAL_N1) + 10)
 
 #define TEST_MODEL_ID_1 0x2a2a
 #define TEST_MODEL_ID_2 0x2b2b
@@ -167,36 +166,15 @@ static void relay_configuration(uint16_t addr, uint8_t new_relay)
 }
 
 
-static struct k_work_delayable delayed_work_N0N3;
-static struct k_work_delayable delayed_work_N1N3;
-static struct k_work_delayable delayed_work_N2N3;
+// static struct k_work_delayable delayed_work_N0N3;
 static struct k_work_delayable delayed_work_N0N4;
 static struct k_work_delayable delayed_work_N0N5;
+static struct k_work_delayable delayed_work_N1N3;
+static struct k_work_delayable delayed_work_N2N3;
+static struct k_work_delayable delayed_work_N1N4;
+static struct k_work_delayable delayed_work_N2N4;
 static struct k_work_delayable delayed_work_N2N5;
 static struct k_work_delayable delayed_work_group;
-
-static void send_message_N0N3(struct k_work *work)
-{
-	static int count = 0;
-	struct bt_mesh_msg_ctx ctx = {
-		.net_idx = 0,
-		.app_idx = 0,
-		.addr = UNICAST_ADDR3,
-		.send_rel = false,
-		.send_ttl = 3,
-	};
-
-	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
-
-	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
-	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
-
-	count++;
-
-	if (count < TX_COUNT_NOISE) {
-		k_work_reschedule(&delayed_work_N0N3, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
-	}
-}
 
 static void send_message_N0N4(struct k_work *work)
 {
@@ -216,7 +194,7 @@ static void send_message_N0N4(struct k_work *work)
 
 	count++;
 
-	if (count < TX_COUNT_NOISE) {
+	if (count < TX_COUNT) {
 		k_work_reschedule(&delayed_work_N0N4, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
 	}
 }
@@ -239,7 +217,7 @@ static void send_message_N0N5(struct k_work *work)
 
 	count++;
 
-	if (count < TX_COUNT_NOISE) {
+	if (count < TX_COUNT) {
 		k_work_reschedule(&delayed_work_N0N5, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
 	}
 }
@@ -285,8 +263,54 @@ static void send_message_N2N3(struct k_work *work)
 
 	count++;
 
-	if (count < TX_COUNT) {
+	if (count < TX_COUNT_NOISE) {
 		k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL_N2 + rand() % 10));
+	}
+}
+
+static void send_message_N1N4(struct k_work *work)
+{
+	static int count = 0;
+	struct bt_mesh_msg_ctx ctx = {
+		.net_idx = 0,
+		.app_idx = 0,
+		.addr = UNICAST_ADDR4,
+		.send_rel = false,
+		.send_ttl = 3,
+	};
+
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_2, 0);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
+	bt_mesh_model_send(&models[3], &ctx, &buf, NULL, NULL);
+
+	count++;
+
+	if (count < TX_COUNT_NOISE) {
+		k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL_N1 + rand() % 10));
+	}
+}
+
+static void send_message_N2N4(struct k_work *work)
+{
+	static int count = 0;
+	struct bt_mesh_msg_ctx ctx = {
+		.net_idx = 0,
+		.app_idx = 0,
+		.addr = UNICAST_ADDR4,
+		.send_rel = false,
+		.send_ttl = 3,
+	};
+
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_3, 0);
+
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_3);
+	bt_mesh_model_send(&models[4], &ctx, &buf, NULL, NULL);
+
+	count++;
+
+	if (count < TX_COUNT_NOISE) {
+		k_work_reschedule(&delayed_work_N2N4, K_MSEC(TX_INTERVAL_N2 + rand() % 10));
 	}
 }
 
@@ -308,7 +332,7 @@ static void send_message_N2N5(struct k_work *work)
 
 	count++;
 
-	if (count < TX_COUNT) {
+	if (count < TX_COUNT_NOISE) {
 		k_work_reschedule(&delayed_work_N2N5, K_MSEC(TX_INTERVAL_N2 + rand() % 10));
 	}
 }
@@ -324,15 +348,15 @@ static void send_message_GROUP(struct k_work *work)
 		.send_ttl = 3,
 	};
 
-	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_1, 0);
+	BT_MESH_MODEL_BUF_DEFINE(buf, TEST_MESSAGE_OP_2, 0);
 
-	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_1);
+	bt_mesh_model_msg_init(&buf, TEST_MESSAGE_OP_2);
 	bt_mesh_model_send(&models[2], &ctx, &buf, NULL, NULL);
 
 	count++;
 
 	if (count < TX_COUNT_NOISE) {
-		k_work_reschedule(&delayed_work_group, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
+		k_work_reschedule(&delayed_work_group, K_MSEC(TX_INTERVAL_N1 + rand() % 10));
 	}
 }
 
@@ -344,18 +368,12 @@ static void test_tx_node_0(void)
 	common_configure(UNICAST_ADDR0);
 	relay_configuration(UNICAST_ADDR0, BT_MESH_RELAY_DISABLED);
 	LOG_INF(" ---- ## CONFIG DONE ## ");
-
-	k_work_init_delayable(&delayed_work_N0N3, send_message_N0N3);
-	k_work_reschedule(&delayed_work_N0N3, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
-
+	
 	k_work_init_delayable(&delayed_work_N0N4, send_message_N0N4);
 	k_work_reschedule(&delayed_work_N0N4, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
 
 	k_work_init_delayable(&delayed_work_N0N5, send_message_N0N5);
 	k_work_reschedule(&delayed_work_N0N5, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
-
-	k_work_init_delayable(&delayed_work_group, send_message_GROUP);
-	k_work_reschedule(&delayed_work_group, K_MSEC(TX_INTERVAL_N0 + rand() % 10));
 
 	PASS();
 }
@@ -371,6 +389,15 @@ static void test_tx_node_1(void)
 
 	k_work_init_delayable(&delayed_work_N1N3, send_message_N1N3);
 	k_work_reschedule(&delayed_work_N1N3, K_MSEC(TX_INTERVAL_N1 + rand() % 10));
+	
+	k_work_init_delayable(&delayed_work_N1N4, send_message_N1N4);
+	k_work_reschedule(&delayed_work_N1N4, K_MSEC(TX_INTERVAL_N1 + rand() % 10));
+	
+	k_work_init_delayable(&delayed_work_group, send_message_GROUP);
+	k_work_reschedule(&delayed_work_group, K_MSEC(TX_INTERVAL_N1 + rand() % 10));
+
+
+	
 	PASS();
 }
 
@@ -385,6 +412,9 @@ static void test_tx_node_2(void)
 
 	k_work_init_delayable(&delayed_work_N2N3, send_message_N2N3);
 	k_work_reschedule(&delayed_work_N2N3, K_MSEC(TX_INTERVAL_N2 + rand() % 10));
+
+	k_work_init_delayable(&delayed_work_N2N4, send_message_N2N4);
+	k_work_reschedule(&delayed_work_N2N4, K_MSEC(TX_INTERVAL_N2 + rand() % 10));
 
 	k_work_init_delayable(&delayed_work_N2N5, send_message_N2N5);
 	k_work_reschedule(&delayed_work_N2N5, K_MSEC(TX_INTERVAL_N2 + rand() % 10));

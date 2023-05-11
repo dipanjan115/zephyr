@@ -48,7 +48,7 @@ LOG_MODULE_REGISTER(bt_mesh_net);
 #define PRIORITY_DST 0x0006
 
 /*Address Based Priority Setting*/
-#define ADDR_PRIORITY_ENABLED 0
+#define ADDR_PRIORITY_ENABLED 1
 
 /* Seq limit after IV Update is triggered */
 #define IV_UPDATE_SEQ_LIMIT CONFIG_BT_MESH_IV_UPDATE_SEQ_LIMIT
@@ -504,10 +504,10 @@ static int net_loopback(const struct bt_mesh_net_tx *tx, const uint8_t *data, si
 	return 0;
 }
 
-void bt_mesh_priority_tag_set(uint16_t src, uint16_t dst, struct net_buf *buf)
+void bt_mesh_priority_set(uint16_t src, uint16_t dst, struct net_buf *buf)
 {
 	if ((src == PRIORITY_SRC) && (dst == PRIORITY_DST)) {
-		BT_MESH_ADV(buf)->tag |= BT_MESH_ADDR_PRIORITY_ADV;
+		BT_MESH_ADV(buf)->priority = 1U;
 	}
 }
 
@@ -562,7 +562,7 @@ int bt_mesh_net_send(struct bt_mesh_net_tx *tx, struct net_buf *buf,
 
 	/*Sets BT_MESH_ADDR_PRIORITY_ADV*/
 	if (ADDR_PRIORITY_ENABLED) {
-		bt_mesh_priority_tag_set(tx->src, tx->ctx->addr, buf);
+		bt_mesh_priority_set(tx->src, tx->ctx->addr, buf);
 	}
 
 	/* Deliver to GATT Proxy Clients if necessary. */
@@ -699,7 +699,7 @@ static void bt_mesh_net_relay(struct net_buf_simple *sbuf, struct bt_mesh_net_rx
 
 	/*Sets Tag For Relay Nodes*/
 	if (ADDR_PRIORITY_ENABLED) {
-		bt_mesh_priority_tag_set(rx->ctx.addr, rx->ctx.recv_dst, buf);
+		bt_mesh_priority_set(rx->ctx.addr, rx->ctx.recv_dst, buf);
 	}
 
 	if (!buf) {

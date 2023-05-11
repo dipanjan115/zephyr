@@ -168,7 +168,7 @@ struct net_buf *bt_mesh_adv_buf_get(k_timeout_t timeout)
 	return process_events(events, ARRAY_SIZE(events));
 }
 
-struct net_buf *bt_mesh_adv_buf_get_by_tag(uint16_t tag, k_timeout_t timeout)
+struct net_buf *bt_mesh_adv_buf_get_by_tag(uint8_t tag, k_timeout_t timeout)
 {
 	if (IS_ENABLED(CONFIG_BT_MESH_ADV_EXT_FRIEND_SEPARATE) && tag & BT_MESH_FRIEND_ADV) {
 		return net_buf_get(&bt_mesh_friend_queue, timeout);
@@ -188,7 +188,7 @@ struct net_buf *bt_mesh_adv_buf_get(k_timeout_t timeout)
 	return net_buf_get(&bt_mesh_adv_queue, timeout);
 }
 
-struct net_buf *bt_mesh_adv_buf_get_by_tag(uint16_t tag, k_timeout_t timeout)
+struct net_buf *bt_mesh_adv_buf_get_by_tag(uint8_t tag, k_timeout_t timeout)
 {
 	ARG_UNUSED(tag);
 
@@ -228,8 +228,8 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, voi
 	}
 
 #if CONFIG_BT_MESH_RELAY_ADV_SETS
-	if ((BT_MESH_ADV(buf)->tag & BT_MESH_RELAY_ADV) &&
-	    (BT_MESH_ADV(buf)->tag & BT_MESH_ADDR_PRIORITY_ADV)) {
+	if ((BT_MESH_ADV(buf)->tag == BT_MESH_RELAY_ADV) &&
+	    (BT_MESH_ADV(buf)->priority == 1U)) {
 
 		struct net_buf *temp_relay_buf;
 		while ((temp_relay_buf = k_fifo_get(&bt_mesh_relay_queue, K_NO_WAIT)) != NULL) {
@@ -252,7 +252,7 @@ void bt_mesh_adv_send(struct net_buf *buf, const struct bt_mesh_send_cb *cb, voi
 		return;
 	}
 #endif
-	if (BT_MESH_ADV(buf)->tag == BT_MESH_ADDR_PRIORITY_ADV) {
+	if (BT_MESH_ADV(buf)->priority == 1U) {
 		struct net_buf *temp_buf;
 		while ((temp_buf = k_fifo_get(&bt_mesh_adv_queue, K_NO_WAIT)) != NULL) {
 			k_fifo_put(&temp_priority_queue, temp_buf);
